@@ -1,0 +1,71 @@
+<div class="row">
+    <!-- Formulaire de Connexion -->
+    <div class="col s6">
+        <h4>Connexion</h4>
+        <form class="col s12" (submit)="login()">
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="num_cli_connexion">Numéro client</label>
+                    <input id="num_cli_connexion" type="number" class="validate" [(ngModel)]="loginClient.num_cli" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="mdp_cli_connexion" type="password" class="validate" [(ngModel)]="loginClient.mdp_cli" required>
+                    <label for="mdp_cli_connexion">Mot de passe</label>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">
+                Connexion
+            </button>
+        </form>
+    </div>
+
+    <!-- Formulaire d'Inscription -->
+    <div class="col s6">
+        <h4>Inscription</h4>
+        <form class="col s12" (submit)="register()">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="nom_cli" type="text" class="validate" [(ngModel)]="newClient.nom_cli" required>
+                    <label for="nom_cli">Nom</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="prenom_cli" type="text" class="validate" [(ngModel)]="newClient.prenom_cli" required>
+                    <label for="prenom_cli">Prénom</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="adresse_cli" type="text" class="validate" [(ngModel)]="newClient.adresse_cli" required>
+                    <label for="adresse_cli">Adresse</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="cp_cli" type="text" class="validate" [(ngModel)]="newClient.cp_cli" required>
+                    <label for="cp_cli">Code postal</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="tel_cli" type="text" class="validate" [(ngModel)]="newClient.tel_cli" required>
+                    <label for="tel_cli">Numéro de téléphone</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="mdp_cli_inscription" type="password" class="validate" [(ngModel)]="newClient.mdp_cli" required>
+                    <label for="mdp_cli_inscription">Mot de passe</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="confirm_mdp_cli" type="password" class="validate" [(ngModel)]="newClient.mdp_cli" required>
+                    <label for="confirm_mdp_cli">Confirmer le mot de passe</label>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">
+                Inscription
+            </button>
+        </form>
+    </div>
+</div>
