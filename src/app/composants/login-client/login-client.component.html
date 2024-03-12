@@ -5,14 +5,14 @@
         <form class="col s12" (submit)="login()">
             <div class="row">
                 <div class="input-field col s12">
-                    <label for="num_cli_connexion">Numéro client</label>
-                    <input id="num_cli_connexion" type="number" class="validate" [(ngModel)]="loginClient.num_cli" required>
+                    <input id="num_cli_connexion" type="number" [(ngModel)]="loginClient.num_cli" required>
+                    <label for="num_cli_connexion" class="active">Numéro client</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="mdp_cli_connexion" type="password" class="validate" [(ngModel)]="loginClient.mdp_cli" required>
-                    <label for="mdp_cli_connexion">Mot de passe</label>
+                    <input id="mdp_cli_connexion" type="password" [(ngModel)]="loginClient.mdp_cli" required>
+                    <label for="mdp_cli_connexion" class="active">Mot de passe</label>
                 </div>
             </div>
             <button class="btn waves-effect waves-light" type="submit">
@@ -27,40 +27,40 @@
         <form class="col s12" (submit)="register()">
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="nom_cli" type="text" class="validate" [(ngModel)]="newClient.nom_cli" required>
-                    <label for="nom_cli">Nom</label>
+                    <input id="nom_cli" type="text" [(ngModel)]="newClient.nom_cli" required>
+                    <label for="nom_cli" class="active">Nom</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="prenom_cli" type="text" class="validate" [(ngModel)]="newClient.prenom_cli" required>
-                    <label for="prenom_cli">Prénom</label>
+                    <input id="prenom_cli" type="text" [(ngModel)]="newClient.prenom_cli" required>
+                    <label for="prenom_cli" class="active">Prénom</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="adresse_cli" type="text" class="validate" [(ngModel)]="newClient.adresse_cli" required>
-                    <label for="adresse_cli">Adresse</label>
+                    <input id="adresse_cli" type="text" [(ngModel)]="newClient.adresse_cli" required>
+                    <label for="adresse_cli" class="active">Adresse</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="cp_cli" type="text" class="validate" [(ngModel)]="newClient.cp_cli" required>
-                    <label for="cp_cli">Code postal</label>
+                    <input id="codeville_cli" type="text" [(ngModel)]="newClient.codeville_cli" required>
+                    <label for="codeville_cli" class="active">Code postal</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="tel_cli" type="text" class="validate" [(ngModel)]="newClient.tel_cli" required>
-                    <label for="tel_cli">Numéro de téléphone</label>
+                    <input id="tel_cli" type="text" [(ngModel)]="newClient.tel_cli" required>
+                    <label for="tel_cli" class="active">Numéro de téléphone</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="mdp_cli_inscription" type="password" class="validate" [(ngModel)]="newClient.mdp_cli" required>
-                    <label for="mdp_cli_inscription">Mot de passe</label>
+                    <input id="mdp_cli_inscription" type="password" [(ngModel)]="newClient.mdp_cli" required>
+                    <label for="mdp_cli_inscription" class="active">Mot de passe</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="confirm_mdp_cli" type="password" class="validate" [(ngModel)]="newClient.mdp_cli" required>
-                    <label for="confirm_mdp_cli">Confirmer le mot de passe</label>
+                    <input id="confirm_mdp_cli" type="password" [(ngModel)]="newClient.confirmMdp" required>
+                    <label for="confirm_mdp_cli" class="active">Confirmer le mot de passe</label>
                 </div>
             </div>
             <button class="btn waves-effect waves-light" type="submit">

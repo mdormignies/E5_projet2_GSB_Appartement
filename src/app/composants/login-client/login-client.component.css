@@ -1,0 +1,7 @@
+.custom-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;  /* Ajustez cette valeur selon votre mise en page */
+    transform: translateY(-50%);
+    cursor: pointer;
+}

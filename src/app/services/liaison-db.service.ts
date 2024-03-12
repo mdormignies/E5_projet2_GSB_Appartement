@@ -23,12 +23,10 @@ export class LiaisonDBService {
   }
 
   loginClient(client: Client): Observable<any> {
-    // Appel de l'API pour vérifier l'authentification
-    return this.http.post(`${this.apiUrl}/login`, client);
+    return this.http.post(this.apiUrl, client);
   }
 
   registerClient(client: Client): Observable<any> {
-    // Appel de l'API pour vérifier l'authentification
-    return this.http.post(`${this.apiUrl}/register`, client);
+    return this.http.post(this.apiUrl , client);
   }
 }

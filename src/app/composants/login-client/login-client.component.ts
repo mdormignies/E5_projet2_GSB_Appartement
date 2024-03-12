@@ -20,29 +20,61 @@ export class LoginClientComponent implements OnInit {
 
   ngOnInit() { }
 
-  login() {
-    // Appel du service pour vérifier l'authentification
-    this.liaisonDBService.loginClient(this.loginClient).subscribe(
-      (response) => {
-        this.authService.login(); // Activer l'authentification
+  login(): void {
 
-        this.router.navigate(['/home']); // Si l'authentification réussit, rediriger vers une autre page
+    this.loginClient.action = 'login';
+
+    // Vérification des conditions avant la connexion
+    if (this.loginClient.num_cli == null || this.loginClient.mdp_cli.trim() === '') {
+      alert('Veuillez remplir correctement tous les champs.');
+      return;  // Arrêter le processus de connexion si les conditions ne sont pas remplies
+    }
+  
+    // Appel du service pour vérifier la connexion
+    this.liaisonDBService.loginClient(this.loginClient).subscribe(
+      (response: any) => {
+        console.log(response.message);
+        this.authService.login();  // Activer l'authentification et accéder au site
+        this.router.navigate(['/home']);
       },
-      (error) => {
-        console.error("Erreur d'authentification", error);
-        // Vous pouvez afficher un message d'erreur à l'utilisateur
+      (error: any) => {
+        alert('La connexion a échoué. Veuillez vérifier vos informations.');
+        console.error('Erreur lors de la connexion', error);
       }
     );
   }
 
-  register() {
+  register(): void {
+
+    this.newClient.action = 'register';
+
+    // Vérification des conditions avant l'inscription
+    if (
+      this.newClient.nom_cli.trim() === '' ||
+      this.newClient.prenom_cli.trim() === '' ||
+      this.newClient.adresse_cli.trim() === '' ||
+      this.newClient.codeville_cli.length !== 5 ||  // Vérification de la longueur du code postal
+      !this.newClient.codeville_cli.startsWith('75') ||  // Vérification du préfixe du code postal
+      this.newClient.tel_cli.length !== 10 ||  // Vérification de la longueur du numéro de téléphone
+      !this.newClient.tel_cli.startsWith('0') ||  // Vérification du préfixe du numéro de téléphone
+      this.newClient.mdp_cli.trim() === '' ||
+      this.newClient.confirmMdp.trim() === '' ||
+      this.newClient.mdp_cli !== this.newClient.confirmMdp
+    ) {
+      alert('Veuillez remplir correctement tous les champs.');
+      return;  // Arrêter le processus d'inscription si les conditions ne sont pas remplies
+    }
+
     // Appel du service pour vérifier l'inscription
     this.liaisonDBService.registerClient(this.newClient).subscribe(
-      (response) => {
-        alert("L'inscription a été effectuée, vous pouvez à présent vous connecter.");
+      (response: any) => {
+        console.log(response.message);
+        this.authService.login();  // Activer l'authentification et accéder au site
+        this.router.navigate(['/home']);
       },
-      (error) => {
-        console.error("Erreur d'inscription'", error);
+      (error: any) => {
+        alert('L\'incription a échoué');
+        console.error('Erreur lors de la connexion', error);
       }
     );
   }
