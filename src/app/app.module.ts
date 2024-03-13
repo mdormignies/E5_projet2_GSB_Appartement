@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { InitComponent } from './composants/init/init.component';
 import { HomeComponent } from './composants/home/home.component';
 import { LoginClientComponent } from './composants/login-client/login-client.component';
+import { LoginProprietaireComponent } from './composants/login-proprietaire/login-proprietaire.component';
 import { PersonComponent } from './composants/person/person.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     InitComponent,
     HomeComponent,
     PersonComponent,
-    LoginClientComponent
+    LoginClientComponent,
+    LoginProprietaireComponent
     // Ajoutez d'autres composants si nécessaire
   ],
   imports: [

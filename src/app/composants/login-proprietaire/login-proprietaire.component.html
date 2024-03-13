@@ -1,1 +1,71 @@
-<p>login-proprietaire works!</p>
+<div class="row">
+    <!-- Formulaire de Connexion -->
+    <div class="col s6">
+        <h4>Connexion</h4>
+        <form class="col s12" (submit)="login()">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="numeroprop_connexion" type="number" [(ngModel)]="loginProprio.numeroprop" required>
+                    <label for="numeroprop_connexion" class="active">Numéro propriétaire</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="mdp_prop_connexion" type="password" [(ngModel)]="loginProprio.mdp_prop" required>
+                    <label for="mdp_prop_connexion" class="active">Mot de passe</label>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">
+                Connexion
+            </button>
+        </form>
+    </div>
+
+    <!-- Formulaire d'Inscription -->
+    <div class="col s6">
+        <h4>Inscription</h4>
+        <form class="col s12" (submit)="register()">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="nom_prop" type="text" [(ngModel)]="newProprio.nom_prop" required>
+                    <label for="nom_prop" class="active">Nom</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="prenom_prop" type="text" [(ngModel)]="newProprio.prenom_prop" required>
+                    <label for="prenom_prop" class="active">Prénom</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="adresse_prop" type="text" [(ngModel)]="newProprio.adresse_prop" required>
+                    <label for="adresse_prop" class="active">Adresse</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="codeville_prop" type="text" [(ngModel)]="newProprio.codeville_prop" required>
+                    <label for="codeville_prop" class="active">Code postal</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="tel_prop" type="text" [(ngModel)]="newProprio.tel_prop" required>
+                    <label for="tel_prop" class="active">Numéro de téléphone</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="mdp_prop_inscription" type="password" [(ngModel)]="newProprio.mdp_prop" required>
+                    <label for="mdp_prop_inscription" class="active">Mot de passe</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="confirm_mdp_prop" type="password" [(ngModel)]="newProprio.confirmMdp" required>
+                    <label for="confirm_mdp_prop" class="active">Confirmer le mot de passe</label>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">
+                Inscription
+            </button>
+        </form>
+    </div>
+</div>
