@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Client } from '../../models/client';
+import { Client } from '../../models/class_client/client';
 import { Router } from '@angular/router';
 import { catchError, tap, throwError } from "rxjs";
 
-import { LiaisonDBService } from '../../services/liaison-db.service';
+import { ClientService } from "../../services/s_client/client.service"; 
 import { LiaisonAuthService } from '../../services/liaision-auth.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginClientComponent implements OnInit {
   loginClient: Client = new Client();
   newClient: Client = new Client();
 
-  constructor(private router: Router, private liaisonDBService: LiaisonDBService, private authService: LiaisonAuthService) {}
+  constructor(private router: Router, private clientService: ClientService, private authService: LiaisonAuthService) {}
 
   ngOnInit() { }
 
@@ -31,7 +31,7 @@ export class LoginClientComponent implements OnInit {
     }
   
     // Appel du service pour vérifier la connexion
-    this.liaisonDBService.loginClient(this.loginClient).subscribe(
+    this.clientService.loginClient(this.loginClient).subscribe(
       (response: any) => {
         console.log(response.message);
         this.authService.login();  // Activer l'authentification et accéder au site
@@ -66,7 +66,7 @@ export class LoginClientComponent implements OnInit {
     }
 
     // Appel du service pour vérifier l'inscription
-    this.liaisonDBService.registerClient(this.newClient).subscribe(
+    this.clientService.registerClient(this.newClient).subscribe(
       (response: any) => {
         console.log(response.message);
         this.authService.login();  // Activer l'authentification et accéder au site

@@ -10,7 +10,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header("Content-Type: application/json");
 
 
-require_once('db.php');
+require_once('../db.php');
 
 //-----------------------------------------------------------------------------------------------------------\\
 

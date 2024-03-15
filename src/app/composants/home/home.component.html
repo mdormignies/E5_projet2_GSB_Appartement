@@ -1,4 +1,8 @@
 <div>
-    <h2>Bienvenue sur la page d'accueil!</h2>
-    <a routerLink="/people">Aller à la page Personnes</a>
+    <h2>Apartments List</h2>
+    <ul>
+        <li *ngFor="let unAppartement of appartementList">
+            {{ unAppartement.numappart }} - {{ unAppartement.rue }} - {{ unAppartement.arrondisse }}
+        </li>
+    </ul>
 </div>

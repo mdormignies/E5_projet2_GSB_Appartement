@@ -3,24 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-import { Person } from '../models/person';
-import { Client } from '../models/class_client/client';
+import { Client } from '../../models/class_client/client';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LiaisonDBService {
+export class ClientService {
   private apiUrl = 'http://localhost/test-angular/src/app/models/DB_Client/DB_Client.php';
 
   constructor(private http: HttpClient) {}
-
-  getPeople(): Observable<Person[]> {
-    return this.http.get<Person[]>(this.apiUrl);
-  }
-
-  addPerson(person: Person): Observable<any> {
-    return this.http.post(this.apiUrl, person);
-  }
 
   loginClient(client: Client): Observable<any> {
     return this.http.post(this.apiUrl, client);

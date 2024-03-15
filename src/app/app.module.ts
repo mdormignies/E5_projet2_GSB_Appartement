@@ -7,6 +7,7 @@ import { HomeComponent } from './composants/home/home.component';
 import { LoginClientComponent } from './composants/login-client/login-client.component';
 import { LoginProprietaireComponent } from './composants/login-proprietaire/login-proprietaire.component';
 import { LoginLocataireComponent } from './composants/login-locataire/login-locataire.component';
+import { AppartementComponent } from './composants/appartement/appartement/appartement.component';
 import { PersonComponent } from './composants/person/person.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     PersonComponent,
     LoginClientComponent,
     LoginProprietaireComponent,
-    LoginLocataireComponent
+    LoginLocataireComponent,
+    AppartementComponent
     // Ajoutez d'autres composants si nécessaire
   ],
   imports: [
