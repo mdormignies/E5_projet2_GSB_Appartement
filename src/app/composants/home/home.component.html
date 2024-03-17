@@ -1,8 +1,59 @@
-<div>
-    <h2>Apartments List</h2>
-    <ul>
-        <li *ngFor="let unAppartement of appartementList">
-            {{ unAppartement.numappart }} - {{ unAppartement.rue }} - {{ unAppartement.arrondisse }}
-        </li>
-    </ul>
+<div class="container">
+    <div class="row">
+        <!-- Tri par arrondissement -->
+        <div class="col s12 m4">
+            <h6>Chercher dans un arrondissement précis ?</h6>
+            <!-- Boutons de tri par arrondissement -->
+            <div>
+                <button class="btn" (click)="sortByArrondissement('all')">Tous</button>
+                <button *ngFor="let arrondissement of arrondissements" class="btn"
+                    (click)="sortByArrondissement(arrondissement)">
+                    Arr. {{ arrondissement }}
+                </button>
+            </div>
+        </div>
+
+        <!-- Tri par type d'appartement -->
+        <div class="col s12 m4">
+            <h6>Chercher un type d'appartement précis ?</h6>
+            <!-- Boutons de tri par type d'appartement -->
+            <div>
+                <button class="btn" (click)="sortByTypeAppartement('all')">Tous</button>
+                <button *ngFor="let type of typesAppartement" class="btn" (click)="sortByTypeAppartement(type)">
+                    {{ type }}
+                </button>
+            </div>
+        </div>
+
+        <!-- Tri par prix de location -->
+        <div class="col s12 m4">
+            <h6>Vous avez un budget précis ?</h6>
+            <div>
+                <input type="number" placeholder="Prix minimum" [(ngModel)]="prixMin" min="0">
+                <input type="number" placeholder="Prix maximum" [(ngModel)]="prixMax" min="0">
+                <button class="btn" (click)="sortByPrixLocation()">Rechercher</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <h6>Résultats</h6>
+        <!-- Liste des appartements -->
+        <div *ngFor="let unAppartement of filteredAppartementList" class="col s12 m4">
+            <div (click)="goToAppartement(unAppartement)" class="card" AppartementBorderCard>
+                <div class="card-image">
+                    <img src="../../../assets/img/image.jpg" alt="Image">
+                </div>
+                <div class="card-content" style="height: 120px; overflow: hidden;">
+                    <p><strong>{{ unAppartement.rue }}</strong></p>
+                    <p>Paris {{ unAppartement.arrondisse }}</p>
+                    <p><small>Type : {{ unAppartement.typappart }} - Libre le : {{ unAppartement.date_libre }}</small>
+                    </p>
+                </div>
+                <div class="card-action">
+                    <p>Prix de location : {{ unAppartement.prix_loc }} €</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

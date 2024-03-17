@@ -11,6 +11,7 @@ import { AppartementComponent } from './composants/appartement/appartement/appar
 import { PersonComponent } from './composants/person/person.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AppartementBorderCardDirective } from './directives/appartementBorderCard/appartement-border-card.directive';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginClientComponent,
     LoginProprietaireComponent,
     LoginLocataireComponent,
-    AppartementComponent
+    AppartementComponent,
+    AppartementBorderCardDirective
     // Ajoutez d'autres composants si nécessaire
   ],
   imports: [

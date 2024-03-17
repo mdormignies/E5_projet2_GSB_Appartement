@@ -1,1 +1,60 @@
-<p>appartement works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <h2 class="center-align">Détails de l'appartement</h2>
+            <div class="card horizontal hoverable">
+                <div class="card-image">
+                    <img [src]="'../../../assets/img/image.jpg'" alt="Image">
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <table class="striped">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Rue</strong></td>
+                                    <td>{{ appartement.rue }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Arrondissement</strong></td>
+                                    <td>Paris {{ appartement.arrondisse }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Étage</strong></td>
+                                    <td>{{ appartement.etage }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Type d'appartement</strong></td>
+                                    <td>{{ appartement.typappart }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Prix de location</strong></td>
+                                    <td>{{ appartement.prix_loc }} €</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Prix des charges</strong></td>
+                                    <td>{{ appartement.prix_charg }} €</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ascenseur</strong></td>
+                                    <td>{{ appartement.ascenseur ? 'Oui' : 'Non' }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Préavis</strong></td>
+                                    <td>{{ appartement.preavis ? 'Oui' : 'Non' }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Date de disponibilité</strong></td>
+                                    <td>{{ appartement.date_libre }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-action">
+                        <a class="waves-effect waves-light btn-small">Retour</a>
+                        <a class="waves-effect waves-light btn-small">Editer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

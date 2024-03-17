@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { InitComponent } from './composants/init/init.component';
 import { HomeComponent } from './composants/home/home.component';
 import { LoginProprietaireComponent } from './composants/login-proprietaire/login-proprietaire.component';
 import { LoginLocataireComponent } from './composants/login-locataire/login-locataire.component';
 import { LoginClientComponent } from './composants/login-client/login-client.component';
+import { AppartementComponent } from './composants/appartement/appartement/appartement.component';
 
 import { LiaisonAuthService } from './services/liaision-auth.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -18,6 +20,7 @@ const routes: Routes = [
   { path: 'login-proprietaire', component: LoginProprietaireComponent },
   { path: 'login-locataire', component: LoginLocataireComponent },
   { path: 'login-client', component: LoginClientComponent },
+  { path: 'appartement/:id', canActivate: [AuthGuard], component: AppartementComponent },
   { path: 'people', component: PersonComponent },
   // Ajoutez d'autres routes si nécessaire
 ];

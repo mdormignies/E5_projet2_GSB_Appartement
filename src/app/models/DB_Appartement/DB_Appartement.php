@@ -11,10 +11,14 @@ header("Content-Type: application/json");
 
 
 require_once('../db.php');
-
-// Exemple de récupération de données
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $result = $conn->query("SELECT * FROM appartement");
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $result = $conn->query("SELECT * FROM appartement WHERE numappart = $id");
+    } else {
+        $result = $conn->query("SELECT * FROM appartement");
+    }
+
     $data = array();
 
     while ($row = $result->fetch_assoc()) {
