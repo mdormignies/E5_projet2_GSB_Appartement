@@ -3,7 +3,8 @@ import { Client } from '../../models/class_client/client';
 import { Router } from '@angular/router';
 import { catchError, tap, throwError } from "rxjs";
 
-import { ClientService } from "../../services/s_client/client.service"; 
+import { ClientService } from "../../services/s_client/client.service";
+import { ClientSessionService } from '../../services/sessionsServices/client-session.service';
 import { LiaisonAuthService } from '../../services/liaision-auth.service';
 
 @Component({
@@ -16,7 +17,11 @@ export class LoginClientComponent implements OnInit {
   loginClient: Client = new Client();
   newClient: Client = new Client();
 
-  constructor(private router: Router, private clientService: ClientService, private authService: LiaisonAuthService) {}
+  constructor(
+    private router: Router,
+    private clientService: ClientService,
+    private authService: LiaisonAuthService,
+    private clientSessionService: ClientSessionService) {}
 
   ngOnInit() { }
 
@@ -34,7 +39,7 @@ export class LoginClientComponent implements OnInit {
     this.clientService.loginClient(this.loginClient).subscribe(
       (response: any) => {
         console.log(response.message);
-        this.authService.login();  // Activer l'authentification et accéder au site
+        this.authService.login(this.loginClient.num_cli);  // Activer l'authentification et accéder au site
         this.router.navigate(['/home']);
       },
       (error: any) => {
@@ -69,7 +74,6 @@ export class LoginClientComponent implements OnInit {
     this.clientService.registerClient(this.newClient).subscribe(
       (response: any) => {
         console.log(response.message);
-        this.authService.login();  // Activer l'authentification et accéder au site
         this.router.navigate(['/home']);
       },
       (error: any) => {

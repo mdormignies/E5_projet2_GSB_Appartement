@@ -33,7 +33,6 @@ export class LoginLocataireComponent {
     this.locataireService.loginLocataire(this.loginLocataire).subscribe(
       (response: any) => {
         console.log(response.message);
-        this.authService.login();  // Activer l'authentification et accéder au site
         this.router.navigate(['/home']);
       },
       (error: any) => {

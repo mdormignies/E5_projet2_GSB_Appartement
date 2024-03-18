@@ -50,11 +50,14 @@
                         </table>
                     </div>
                     <div class="card-action">
-                        <a class="waves-effect waves-light btn-small">Retour</a>
-                        <a class="waves-effect waves-light btn-small">Editer</a>
+                        <button class="waves-effect waves-light btn-small" (click)="showAjoutVisiteComponent = true">Visiter l'appartement</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<ng-container *ngIf="showAjoutVisiteComponent">
+    <app-ajout-visite [appartementId]="appartement.numappart"></app-ajout-visite>
+</ng-container>

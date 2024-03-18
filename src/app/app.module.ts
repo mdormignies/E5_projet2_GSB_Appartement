@@ -8,11 +8,16 @@ import { LoginClientComponent } from './composants/login-client/login-client.com
 import { LoginProprietaireComponent } from './composants/login-proprietaire/login-proprietaire.component';
 import { LoginLocataireComponent } from './composants/login-locataire/login-locataire.component';
 import { AppartementComponent } from './composants/appartement/appartement/appartement.component';
+import { VisiteComponent } from './composants/visite/visite/visite.component';
+import { AjoutVisiteComponent } from './composants/ajout-visite/ajout-visite/ajout-visite.component';
+import { ProfilComponent } from './composants/profil/profil.component';
 import { PersonComponent } from './composants/person/person.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppartementBorderCardDirective } from './directives/appartementBorderCard/appartement-border-card.directive';
 import { HttpClientModule } from '@angular/common/http';
+import { LiaisonAuthService } from './services/liaision-auth.service';
+import { AuthGuard } from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +29,10 @@ import { HttpClientModule } from '@angular/common/http';
     LoginProprietaireComponent,
     LoginLocataireComponent,
     AppartementComponent,
-    AppartementBorderCardDirective
+    AppartementBorderCardDirective,
+    VisiteComponent,
+    AjoutVisiteComponent,
+    ProfilComponent
     // Ajoutez d'autres composants si nécessaire
   ],
   imports: [
@@ -35,7 +43,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
     // Ajoutez d'autres modules si nécessaire
   ],
-  providers: [],
+  providers: [LiaisonAuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

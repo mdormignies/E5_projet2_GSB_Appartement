@@ -7,6 +7,8 @@ import { LoginProprietaireComponent } from './composants/login-proprietaire/logi
 import { LoginLocataireComponent } from './composants/login-locataire/login-locataire.component';
 import { LoginClientComponent } from './composants/login-client/login-client.component';
 import { AppartementComponent } from './composants/appartement/appartement/appartement.component';
+import { VisiteComponent } from './composants/visite/visite/visite.component';
+import { ProfilComponent } from './composants/profil/profil.component';
 
 import { LiaisonAuthService } from './services/liaision-auth.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -21,6 +23,8 @@ const routes: Routes = [
   { path: 'login-locataire', component: LoginLocataireComponent },
   { path: 'login-client', component: LoginClientComponent },
   { path: 'appartement/:id', canActivate: [AuthGuard], component: AppartementComponent },
+  { path: 'visite', canActivate: [AuthGuard], component: VisiteComponent },
+  { path: 'profil', canActivate: [AuthGuard], component: ProfilComponent },
   { path: 'people', component: PersonComponent },
   // Ajoutez d'autres routes si nécessaire
 ];

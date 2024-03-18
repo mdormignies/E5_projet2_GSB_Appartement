@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row">
+        <h4 class="center-align">Vous avez rendez-vous le :</h4>
+        <!-- Liste des visites -->
+        <div class="col s12">
+            <div class="card horizontal" *ngFor="let uneVisite of lesVisites">
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p><strong>Date de la visite :</strong></p>
+                        <p>{{ uneVisite.date_visite }}</p>
+                        <p><strong>Propriétaire :</strong></p>
+                        <p>{{ uneVisite.nom }} {{ uneVisite.prenom }}</p>
+                        <p><strong>Client :</strong></p>
+                        <p>{{ uneVisite.nom_cli }} {{ uneVisite.prenom_cli }}</p>
+                        <p><strong>Numéro de l'appartement :</strong></p>
+                        <p>{{ uneVisite.numappart }}</p>
+                    </div>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light" (click)="toggleModifDateInput(uneVisite)">
+                            Modifier
+                        </button>
+                        <button class="btn waves-effect waves-light" (click)="supprimerVisite(uneVisite.numappart, uneVisite.num_cli, uneVisite.date_visite)">
+                            Supprimer
+                        </button>
+                    </div>
+                    <div *ngIf="uneVisite.modificationEnCours" class="card-action">
+                        <form (submit)="modifierVisite(uneVisite.numappart, uneVisite.num_cli, uneVisite.nouvelle_date)">
+                            <input type="date" [(ngModel)]="uneVisite.nouvelle_date" required>
+                            <span class="helper-text red-text" *ngIf="dateInPast(uneVisite.nouvelle_date)">La date de visite doit être future.</span>
+                            <button type="submit" class="btn waves-effect waves-light">
+                                Valider
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

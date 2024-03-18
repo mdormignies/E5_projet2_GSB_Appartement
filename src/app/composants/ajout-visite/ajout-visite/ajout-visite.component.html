@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col s12">
+        <h4>Ajouter une visite</h4>
+        <form (ngSubmit)="ajouterVisite()">
+            <div class="input-field">
+                <input id="date_visite" type="date" [(ngModel)]="newVisite.date_visite" class="validate" required>
+                <label for="date_visite">Date de visite</label>
+                <span class="helper-text red-text" *ngIf="dateInPast()">La date de visite doit être future.</span>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">Ajouter</button>
+        </form>
+    </div>
+</div>

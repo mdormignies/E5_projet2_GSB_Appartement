@@ -34,7 +34,6 @@ export class LoginProprietaireComponent {
     this.ProprietaireService.loginProprio(this.loginProprio).subscribe(
       (response: any) => {
         console.log(response.message);
-        this.authService.login();  // Activer l'authentification et accéder au site
         this.router.navigate(['/home']);
       },
       (error: any) => {
@@ -69,7 +68,6 @@ export class LoginProprietaireComponent {
     this.ProprietaireService.registerProprio(this.newProprio).subscribe(
       (response: any) => {
         console.log(response.message);
-        this.authService.login();  // Activer l'authentification et accéder au site
         this.router.navigate(['/home']);
       },
       (error: any) => {

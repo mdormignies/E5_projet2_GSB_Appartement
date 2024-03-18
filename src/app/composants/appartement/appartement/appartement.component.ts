@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Appartement } from '../../../models/class_appartement/appartement';
 import { AppartementService } from '../../../services/s_appartement/appartement.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-appartement',
@@ -11,6 +12,9 @@ import { AppartementService } from '../../../services/s_appartement/appartement.
 export class AppartementComponent implements OnInit {
 
   appartement: Appartement = new Appartement();
+  showAjoutVisiteComponent: boolean = false;
+  private _appartementIdSubject = new BehaviorSubject<number | null>(null);
+  appartementId$ = this._appartementIdSubject.asObservable();
 
   constructor(private route: ActivatedRoute, private router: Router, private appartementService: AppartementService) { }
 
@@ -29,17 +33,21 @@ export class AppartementComponent implements OnInit {
 
   loadAppartement(appartementId: number): void {
     this.appartementService.getAppartementById(appartementId).subscribe(
-        (appartementData: any) => { // Utiliser any pour accepter tout type de données
-            if (appartementData) { 
-                this.appartement = appartementData[0]; // Récupérer le premier élément du tableau
-                console.log(this.appartement);
-            } else {
-                console.error('Aucun appartement trouvé');
-            }
-        },
-        error => {
-            console.error('Erreur lors du chargement de l\'appartement:', error);
+      (appartementData: any) => { // Utiliser any pour accepter tout type de données
+        if (appartementData) {
+          this.appartement = appartementData[0]; // Récupérer le premier élément du tableau
+          console.log(this.appartement);
+        } else {
+          console.error('Aucun appartement trouvé');
         }
+      },
+      error => {
+        console.error('Erreur lors du chargement de l\'appartement:', error);
+      }
     );
-}
+  }
+
+  afficherAjoutVisiteComponent() {
+    this.showAjoutVisiteComponent = true;
+  }
 }
