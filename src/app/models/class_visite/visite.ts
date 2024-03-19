@@ -1,6 +1,7 @@
 export class Visite {
     public numappart: number;
     public num_cli: number;
+    public numeroprop: number;
 
     public date_visite: Date;
 
@@ -10,6 +11,7 @@ export class Visite {
     constructor(
         numappart: number = 0,
         num_cli: number = 0,
+        numeroprop: number = 0,
 
         date_visite: Date = new Date(),
 
@@ -18,6 +20,7 @@ export class Visite {
     ) {
         this.numappart = numappart;
         this.num_cli = num_cli;
+        this.numeroprop = numeroprop;
 
         this.date_visite = date_visite;
 

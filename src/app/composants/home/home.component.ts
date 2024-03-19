@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Appartement } from '../../models/class_appartement/appartement';
+
 import { AppartementService } from '../../services/s_appartement/appartement.service';
+import { ProprioAppartementService } from '../../services/s_appartement/proprio-appartement.service';
+
+import { ClientSessionService } from '../../services/sessionsServices/client-session.service';
+import { ProprietaireSessionService } from "../../services/sessionsServices/proprietaire-session.service";
 
 @Component({
   selector: 'app-home',
@@ -16,10 +21,29 @@ export class HomeComponent implements OnInit {
   prixMin: number = 0;
   prixMax: number = 1000000;
 
-  constructor(private router: Router, private appartementService: AppartementService) { }
+  numCli: number | null = null;
+  numProp: number | null = null;
+
+  constructor(
+    private router: Router,
+    private appartementService: AppartementService,
+    private proprioAppartementService: ProprioAppartementService,
+    private clientSessionService: ClientSessionService,
+    private proprietaireSessionService: ProprietaireSessionService) { }
 
   ngOnInit(): void {
-    this.loadAppartement();
+    this.numCli = this.clientSessionService.getNumCli();
+    if (this.numCli !== null) {
+      this.loadAppartement();
+    }
+
+    this.numProp = this.proprietaireSessionService.getNumProp();
+    if (this.numProp !== null) {
+      this.proprioAppartementService.getAppartementById(this.numProp).subscribe((LesAppartements: Appartement[]) => {
+        this.appartementList = LesAppartements;
+        console.log(this.appartementList) ;
+      });
+    }
   }
 
   loadAppartement(): void {
@@ -61,5 +85,9 @@ export class HomeComponent implements OnInit {
 
   goToAppartement(appartement: Appartement) {
     this.router.navigate(['/appartement', appartement.numappart]);
+  }
+
+  goToNewAppartement() {
+    this.router.navigate(['/ajout-appartement']);
   }
 }

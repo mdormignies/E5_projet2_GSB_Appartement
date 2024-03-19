@@ -5,7 +5,7 @@ import { catchError, tap, throwError } from "rxjs";
 
 import { ClientService } from "../../services/s_client/client.service";
 import { ClientSessionService } from '../../services/sessionsServices/client-session.service';
-import { LiaisonAuthService } from '../../services/liaision-auth.service';
+import { ClientLiaisonAuthService } from '../../services/s_liaison-auth/client-liaision-auth.service';
 
 @Component({
   selector: 'app-login-client',
@@ -20,7 +20,7 @@ export class LoginClientComponent implements OnInit {
   constructor(
     private router: Router,
     private clientService: ClientService,
-    private authService: LiaisonAuthService,
+    private authService: ClientLiaisonAuthService,
     private clientSessionService: ClientSessionService) {}
 
   ngOnInit() { }

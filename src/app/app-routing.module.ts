@@ -10,10 +10,13 @@ import { AppartementComponent } from './composants/appartement/appartement/appar
 import { VisiteComponent } from './composants/visite/visite/visite.component';
 import { ProfilComponent } from './composants/profil/profil.component';
 
-import { LiaisonAuthService } from './services/liaision-auth.service';
+import { ClientLiaisonAuthService } from './services/s_liaison-auth/client-liaision-auth.service';
+import { LocataireLiaisonAuthService } from './services/s_liaison-auth/locataire-liaison-auth.service';
+import { ProprietaireLiaisonAuthService } from './services/s_liaison-auth/proprietaire-liaison-auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 
 import { PersonComponent } from './composants/person/person.component';
+import { AjoutAppartementComponent } from './composants/ajout-appartement/ajout-appartement.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/init', pathMatch: 'full' },
@@ -23,6 +26,7 @@ const routes: Routes = [
   { path: 'login-locataire', component: LoginLocataireComponent },
   { path: 'login-client', component: LoginClientComponent },
   { path: 'appartement/:id', canActivate: [AuthGuard], component: AppartementComponent },
+  { path: 'ajout-appartement', canActivate: [AuthGuard], component: AjoutAppartementComponent },
   { path: 'visite', canActivate: [AuthGuard], component: VisiteComponent },
   { path: 'profil', canActivate: [AuthGuard], component: ProfilComponent },
   { path: 'people', component: PersonComponent },
@@ -32,6 +36,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard, LiaisonAuthService]
+  providers: [AuthGuard, ClientLiaisonAuthService, LocataireLiaisonAuthService, ProprietaireLiaisonAuthService]
 })
 export class AppRoutingModule {}

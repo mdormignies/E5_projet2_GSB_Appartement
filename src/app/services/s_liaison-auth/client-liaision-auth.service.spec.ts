@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LiaisionAuthService } from './liaision-auth.service';
+import { ClientLiaisonAuthService } from './client-liaision-auth.service';
 
 describe('LiaisionAuthService', () => {
-  let service: LiaisionAuthService;
+  let service: ClientLiaisonAuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(LiaisionAuthService);
+    service = TestBed.inject(ClientLiaisonAuthService);
   });
 
   it('should be created', () => {

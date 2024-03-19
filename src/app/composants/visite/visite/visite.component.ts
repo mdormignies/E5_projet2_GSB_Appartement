@@ -6,6 +6,7 @@ import { catchError, tap, throwError } from "rxjs";
 import { VisiteService } from "../../../services/s_visite/visite.service";
 
 import { ClientSessionService } from '../../../services/sessionsServices/client-session.service';
+import { ProprietaireSessionService } from "../../../services/sessionsServices/proprietaire-session.service";
 
 @Component({
   selector: 'app-visite',
@@ -20,7 +21,8 @@ export class VisiteComponent implements OnInit {
   constructor(
     private router: Router,
     private visiteService: VisiteService,
-    private clientSessionService: ClientSessionService
+    private clientSessionService: ClientSessionService,
+    private proprietaireSessionService: ProprietaireSessionService,
   ) { }
 
   ngOnInit() {
@@ -33,7 +35,30 @@ export class VisiteComponent implements OnInit {
       this.uneVisite.num_cli = numCli;
 
       // Appeler le service de visite pour récupérer les visites associées à ce client
-      this.visiteService.getVisitesByNumCli(numCli).subscribe(
+      this.visiteService.getVisitesById(numCli).subscribe(
+        (lesVisites: any) => { // Utiliser any pour accepter tout type de données
+          if (lesVisites) {
+            this.lesVisites = lesVisites;
+            console.log(this.lesVisites);
+          } else {
+            console.error('Aucune visite trouvé');
+          }
+        },
+        error => {
+          console.error('Erreur lors du chargement de la liste de visites', error);
+        }
+      );
+    }
+
+    //------------------------- VISITES DU PROPRIETAIRE ------------------------\\
+
+    // Récupérer le numProp depuis le service de session Proprietaire
+    const numProp = this.proprietaireSessionService.getNumProp();
+    if (numProp !== null) {
+      this.uneVisite.num_cli = numProp;
+
+      // Appeler le service de visite pour récupérer les visites associées à ce propriétaire
+      this.visiteService.getVisitesById(numProp).subscribe(
         (lesVisites: any) => { // Utiliser any pour accepter tout type de données
           if (lesVisites) {
             this.lesVisites = lesVisites;

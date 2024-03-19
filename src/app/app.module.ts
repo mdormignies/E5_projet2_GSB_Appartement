@@ -9,6 +9,7 @@ import { LoginProprietaireComponent } from './composants/login-proprietaire/logi
 import { LoginLocataireComponent } from './composants/login-locataire/login-locataire.component';
 import { AppartementComponent } from './composants/appartement/appartement/appartement.component';
 import { VisiteComponent } from './composants/visite/visite/visite.component';
+import { AjoutAppartementComponent } from './composants/ajout-appartement/ajout-appartement.component'; 
 import { AjoutVisiteComponent } from './composants/ajout-visite/ajout-visite/ajout-visite.component';
 import { ProfilComponent } from './composants/profil/profil.component';
 import { PersonComponent } from './composants/person/person.component';
@@ -16,7 +17,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppartementBorderCardDirective } from './directives/appartementBorderCard/appartement-border-card.directive';
 import { HttpClientModule } from '@angular/common/http';
-import { LiaisonAuthService } from './services/liaision-auth.service';
+import { ClientLiaisonAuthService } from './services/s_liaison-auth/client-liaision-auth.service';
+import { LocataireLiaisonAuthService } from './services/s_liaison-auth/locataire-liaison-auth.service';
+import { ProprietaireLiaisonAuthService } from './services/s_liaison-auth/proprietaire-liaison-auth.service';
 import { AuthGuard } from './services/auth-guard.service';
 
 @NgModule({
@@ -31,6 +34,7 @@ import { AuthGuard } from './services/auth-guard.service';
     AppartementComponent,
     AppartementBorderCardDirective,
     VisiteComponent,
+    AjoutAppartementComponent,
     AjoutVisiteComponent,
     ProfilComponent
     // Ajoutez d'autres composants si nécessaire
@@ -43,7 +47,7 @@ import { AuthGuard } from './services/auth-guard.service';
     HttpClientModule
     // Ajoutez d'autres modules si nécessaire
   ],
-  providers: [LiaisonAuthService, AuthGuard],
+  providers: [AuthGuard, ClientLiaisonAuthService, LocataireLiaisonAuthService, ProprietaireLiaisonAuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

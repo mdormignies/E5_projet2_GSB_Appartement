@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, tap, throwError } from "rxjs";
 
 import { LocataireService } from '../../services/s_locataire/locataire.service';
-import { LiaisonAuthService } from '../../services/liaision-auth.service';
+import { LocataireLiaisonAuthService } from "../../services/s_liaison-auth/locataire-liaison-auth.service";
 
 @Component({
   selector: 'app-login-locataire',
@@ -15,7 +15,7 @@ export class LoginLocataireComponent {
 
   loginLocataire: Locataire = new Locataire();
 
-  constructor(private router: Router, private locataireService: LocataireService, private authService: LiaisonAuthService) {}
+  constructor(private router: Router, private locataireService: LocataireService, private authService: LocataireLiaisonAuthService) {}
 
   ngOnInit() { }
 
@@ -33,6 +33,7 @@ export class LoginLocataireComponent {
     this.locataireService.loginLocataire(this.loginLocataire).subscribe(
       (response: any) => {
         console.log(response.message);
+        this.authService.login(this.loginLocataire.numeroloc);  // Activer l'authentification et accéder au site
         this.router.navigate(['/home']);
       },
       (error: any) => {

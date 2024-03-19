@@ -25,6 +25,7 @@ export class Appartement {
         preavis: boolean = false,
         date_libre: string = '',
         numeroprop: number = 0,
+        
         action: string = ''
     ) {
         this.numappart = numappart;

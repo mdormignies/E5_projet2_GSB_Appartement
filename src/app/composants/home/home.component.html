@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="numCli !== null" class="container">
     <div class="row">
         <!-- Tri par arrondissement -->
         <div class="col s12 m4">
@@ -56,4 +56,28 @@
             </div>
         </div>
     </div>
+</div>
+
+<div *ngIf="numProp !== null" class="container">
+    <div class="row">
+        <h6>Résultats</h6>
+        <!-- Liste des appartements -->
+        <div *ngFor="let unAppartement of appartementList" class="col s12 m4">
+            <div (click)="goToAppartement(unAppartement)" class="card" AppartementBorderCard>
+                <div class="card-image">
+                    <img src="../../../assets/img/image.jpg" alt="Image">
+                </div>
+                <div class="card-content" style="height: 120px; overflow: hidden;">
+                    <p><strong>{{ unAppartement.rue }}</strong></p>
+                    <p>Paris {{ unAppartement.arrondisse }}</p>
+                    <p><small>Type : {{ unAppartement.typappart }} - Libre le : {{ unAppartement.date_libre }}</small>
+                    </p>
+                </div>
+                <div class="card-action">
+                    <p>Prix de location : {{ unAppartement.prix_loc }} €</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn" (click)="goToNewAppartement()">Vous voulez mettre en location un nouvel appartement ?</button>
 </div>

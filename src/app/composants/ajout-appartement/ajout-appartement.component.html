@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="row">
+        <form class="col s12" (ngSubmit)="ajouterAppartement()">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="rue" type="text" class="validate" [(ngModel)]="appartement.rue" required>
+                    <label for="rue" class="active">Rue</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="arrondisse" type="number" class="validate" [(ngModel)]="appartement.arrondisse" required
+                        min="1" max="20">
+                    <label for="arrondisse" class="active">Arrondissement</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="etage" type="number" class="validate" [(ngModel)]="appartement.etage" required min="0"
+                        max="5">
+                    <label for="etage" class="active">Étage</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="typappart" type="text" class="validate" [(ngModel)]="appartement.typappart" required>
+                    <label for="typappart" class="active">Type d'appartement</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="prix_loc" type="number" class="validate" [(ngModel)]="appartement.prix_loc" required>
+                    <label for="prix_loc" class="active">Prix de location</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="prix_charg" type="number" class="validate" [(ngModel)]="appartement.prix_charg" required>
+                    <label for="prix_charg" class="active">Prix des charges</label>
+                </div>
+                <div class="input-field col s6">
+                    <label>
+                        <input type="checkbox" class="filled-in" [(ngModel)]="appartement.ascenseur" />
+                        <span>Ascenseur</span>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <label>
+                        <input type="checkbox" class="filled-in" [(ngModel)]="appartement.preavis" />
+                        <span>Préavis</span>
+                    </label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="date_libre" type="date" class="validate" [(ngModel)]="appartement.date_libre" required>
+                    <label for="date_libre" class="active">Date de disponibilité</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Valider</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

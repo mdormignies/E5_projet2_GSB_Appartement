@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ClientSessionService } from '../services/sessionsServices/client-session.service';
+import { ClientSessionService } from '../sessionsServices/client-session.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LiaisonAuthService {
+export class ClientLiaisonAuthService {
   private isAuthenticated: boolean = false;
 
   constructor(private clientSessionService: ClientSessionService) {}
