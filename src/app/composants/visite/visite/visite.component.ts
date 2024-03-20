@@ -6,6 +6,7 @@ import { catchError, tap, throwError } from "rxjs";
 import { VisiteService } from "../../../services/s_visite/visite.service";
 
 import { ClientSessionService } from '../../../services/sessionsServices/client-session.service';
+import { LocataireSessionService } from "../../../services/sessionsServices/locataire-session.service";
 import { ProprietaireSessionService } from "../../../services/sessionsServices/proprietaire-session.service";
 
 @Component({
@@ -22,10 +23,16 @@ export class VisiteComponent implements OnInit {
     private router: Router,
     private visiteService: VisiteService,
     private clientSessionService: ClientSessionService,
+    private locataireSessionService: LocataireSessionService,
     private proprietaireSessionService: ProprietaireSessionService,
   ) { }
 
   ngOnInit() {
+
+    const numLoc = this.locataireSessionService.getNumLoc();
+    if (numLoc !== null) {
+      this.router.navigate(['/profil']);
+    }
 
     //------------------------- VISITES DU CLIENT ------------------------\\
 
@@ -35,7 +42,7 @@ export class VisiteComponent implements OnInit {
       this.uneVisite.num_cli = numCli;
 
       // Appeler le service de visite pour récupérer les visites associées à ce client
-      this.visiteService.getVisitesById(numCli).subscribe(
+      this.visiteService.getVisitesByNumCli(numCli).subscribe(
         (lesVisites: any) => { // Utiliser any pour accepter tout type de données
           if (lesVisites) {
             this.lesVisites = lesVisites;
@@ -58,7 +65,7 @@ export class VisiteComponent implements OnInit {
       this.uneVisite.num_cli = numProp;
 
       // Appeler le service de visite pour récupérer les visites associées à ce propriétaire
-      this.visiteService.getVisitesById(numProp).subscribe(
+      this.visiteService.getVisitesByNumProp(numProp).subscribe(
         (lesVisites: any) => { // Utiliser any pour accepter tout type de données
           if (lesVisites) {
             this.lesVisites = lesVisites;

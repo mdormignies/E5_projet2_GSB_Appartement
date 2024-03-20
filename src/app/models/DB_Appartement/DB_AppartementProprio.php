@@ -12,7 +12,7 @@ header("Content-Type: application/json");
 
 require_once('../db.php');
 
-//------------------------------------------- CHARGER LA LISTE DES VISITES -------------------------------------------------------\\
+//-------------------------------------- GET APPARTEMENT --------------------------------------------------\\
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['id'])) {
@@ -27,6 +27,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         header('Content-Type: application/json');
         echo json_encode($data);
+    }
+}
+
+//------------------------------------------- POST APPARTEMENT -------------------------------------------------------\\
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    //----------------  AJOUTER  ----------------------\\
+    if ($data['action'] === 'ajouter') {
+
+        $numeroprop = $conn->real_escape_string($data['numeroprop']);
+        $rue = $conn->real_escape_string($data['rue']);
+        $arrondisse = $conn->real_escape_string($data['arrondisse']);
+        $etage = $conn->real_escape_string($data['etage']);
+        $typappart = $conn->real_escape_string($data['typappart']);
+        $prix_loc = $conn->real_escape_string($data['prix_loc']);
+        $prix_charg = $conn->real_escape_string($data['prix_charg']);
+        $ascenseur = $conn->real_escape_string($data['ascenseur']);
+        $preavis = $conn->real_escape_string($data['preavis']);
+        $date_libre = $conn->real_escape_string($data['date_libre']);
+
+        $stmt = $conn->prepare("INSERT INTO appartement (numeroprop, rue, arrondisse, etage, typappart, prix_loc, prix_charg, ascenseur, preavis, date_libre) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        
+        $ascenseur_int = $ascenseur ? 1 : 0;
+        $preavis_int = $preavis ? 1 : 0;
+
+        $stmt->bind_param("isiisiiiis", $numeroprop, $rue, $arrondisse, $etage, $typappart, $prix_loc, $prix_charg, $ascenseur, $preavis, $date_libre);
+
+        if ($stmt->execute()) {
+            echo json_encode(['message' => 'Ajout réussi']);
+        } else {
+            http_response_code(500); // Internal Server Error
+            echo json_encode(['message' => 'Erreur lors de l\'ajout de l\'appartement']);
+        }
+
+    //----------------  MODIFIER  ----------------------\\
+    } elseif ($data['action'] === 'modifier') {
+
+        $numappart = $conn->real_escape_string($data['numappart']);
+        $modifDate = $conn->real_escape_string($data['modifDate']);
+
+        $conn->query("UPDATE appartement 
+                        SET date_libre = '$modifDate' 
+                        WHERE numappart = $numappart ;");
+
+        echo json_encode(['message' => 'Modification réussie']);
+
+    //----------------  SUPPRIMER  ----------------------\\
+    } elseif ($data['action'] === 'supprimer') {
+
+        $numappart = $conn->real_escape_string($data['numappart']);
+
+        $conn->query("DELETE FROM appartement 
+                        WHERE numappart = $numappart ;");
+
+        echo json_encode(['message' => 'Suppression réussie']);
+
+    //----------------  DEFAULT  ----------------------\\
+    } else {
+        http_response_code(400); // Bad Request
+        echo json_encode(['message' => 'Action non spécifiée ou non reconnue']);
     }
 }
 

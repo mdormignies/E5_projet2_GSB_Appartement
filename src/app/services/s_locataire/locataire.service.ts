@@ -16,4 +16,20 @@ export class LocataireService {
   loginLocataire(locataire: Locataire): Observable<any> {
     return this.http.post(this.apiUrl, locataire);
   }
+
+  getProfil(TheId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?id=${TheId}`);
+  }
+
+  ajouterLocataire(locataire: Locataire): Observable<any> {
+    return this.http.post(this.apiUrl, locataire);
+  }
+
+  modifierLocataire(locataire: Locataire): Observable<any> {
+    return this.http.post(this.apiUrl, locataire);
+  }
+
+  supprimerLocataire(locataire: Locataire): Observable<any> {
+    return this.http.post(this.apiUrl, locataire);
+  }
 }

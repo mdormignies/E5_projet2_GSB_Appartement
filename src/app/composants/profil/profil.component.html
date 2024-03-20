@@ -1,1 +1,109 @@
-<p>profil works!</p>
+<div class="container">
+    <div *ngIf="numCli !== null" class="row">
+        <h4 class="center-align">Votre profil</h4>
+        <!-- Liste des visites -->
+        <div class="col s12">
+            <div class="card horizontal">
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p><strong>ID : {{ client.num_cli }}</strong></p>
+                        <p>Nom : {{ client.nom_cli }} {{ client.prenom_cli }} </p>
+                        <p>Adresse : {{ client.adresse_cli }} {{ client.codeville_cli }}</p>
+                        <p>Téléphone : {{ client.tel_cli }}</p>
+                    </div>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light" (click)="toggleModif()">
+                            Modifier
+                        </button>
+                        <button class="btn waves-effect waves-light" (click)="supprimerClient(client.num_cli)">
+                            Supprimer
+                        </button>
+                    </div>
+                    <div *ngIf="afficheModif === true" class="card-action">
+                        <form (submit)="modifierClient(client.adresse_cli, client.codeville_cli)">
+                            <input type="text" [(ngModel)]="client.adresse_cli" required>
+                            <input type="text" [(ngModel)]="client.codeville_cli" required>
+                            <button type="submit" class="btn waves-effect waves-light">
+                                Valider
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="numProp !== null" class="row">
+        <h4 class="center-align">Votre profil</h4>
+        <!-- Liste des visites -->
+        <div class="col s12">
+            <div class="card horizontal">
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p><strong>ID : {{ proprietaire.numeroprop }}</strong></p>
+                        <p>Nom : {{ proprietaire.nom }} {{ proprietaire.prenom }} </p>
+                        <p>Adresse : {{ proprietaire.adresse }} {{ proprietaire.code_ville }}</p>
+                        <p>Téléphone : {{ proprietaire.tel }}</p>
+                        <p><strong>Mes revenus mensuels : {{ proprietaire.revenu }} € NET</strong></p>
+                    </div>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light" (click)="toggleModif()">
+                            Modifier
+                        </button>
+                        <button class="btn waves-effect waves-light" (click)="supprimerProprietaire(proprietaire.numeroprop)">
+                            Supprimer
+                        </button>
+                    </div>
+                    <div *ngIf="afficheModif === true" class="card-action">
+                        <form (submit)="modifierProprio(proprietaire.adresse, proprietaire.code_ville)">
+                            <input type="text" [(ngModel)]="proprietaire.adresse" required>
+                            <input type="text" [(ngModel)]="proprietaire.code_ville" required>
+                            <button type="submit" class="btn waves-effect waves-light">
+                                Valider
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="numLoc !== null" class="row">
+        <h4 class="center-align">Votre profil</h4>
+        <!-- Liste des visites -->
+        <div class="col s12">
+            <div class="card horizontal">
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p><strong>ID : {{ locataire.numeroloc }}</strong></p>
+                        <p>Nom : {{ locataire.nom_loc}} {{ locataire.prenom_loc }}</p>
+                        <p>Date de naissance : {{ locataire.datenaiss }}</p>
+                        <p>Téléphone : {{ locataire.tel_loc }}</p>
+                        <p><strong>Vous résidez au :</strong> {{ locataire.rue }} - Paris {{ locataire.arrondisse }}</p>
+                        <p><strong>Loyer mensuel :</strong> {{ locataire.loyer }} €</p>
+                    </div>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light" (click)="toggleModif()">
+                            Modifier
+                        </button>
+                        <button class="btn waves-effect waves-light" (click)="supprimerLocataire(locataire.numeroloc)">
+                            Supprimer
+                        </button>
+                    </div>
+                    <div *ngIf="afficheModif === true" class="card-action">
+                        <form (submit)="modifierLocataire(locataire.tel_loc)">
+                            <input type="text" [(ngModel)]="locataire.tel_loc" required>
+                            <button type="submit" class="btn waves-effect waves-light">
+                                Valider
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn waves-effect waves-light" (click)="deconnexion()">
+        Se déconnecter
+    </button>
+</div>

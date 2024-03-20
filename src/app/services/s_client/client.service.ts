@@ -20,4 +20,16 @@ export class ClientService {
   registerClient(client: Client): Observable<any> {
     return this.http.post(this.apiUrl , client);
   }
+
+  getProfil(TheId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?id=${TheId}`);
+  }
+
+  modifierClient(client: Client): Observable<any> {
+    return this.http.post(this.apiUrl, client);
+  }
+
+  supprimerClient(client: Client): Observable<any> {
+    return this.http.post(this.apiUrl, client);
+  }
 }

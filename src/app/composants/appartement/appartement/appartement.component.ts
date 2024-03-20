@@ -47,6 +47,10 @@ export class AppartementComponent implements OnInit {
     );
   }
 
+  goToNewLocataire(appartement: Appartement) {
+    this.router.navigate(['/ajout-demande', appartement.numappart]);
+  }
+
   afficherAjoutVisiteComponent() {
     this.showAjoutVisiteComponent = true;
   }

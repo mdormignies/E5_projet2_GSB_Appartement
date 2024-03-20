@@ -14,7 +14,9 @@ import { ProprietaireSessionService } from "../../services/sessionsServices/prop
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  unAppartement: Appartement = new Appartement();
   appartementList: Appartement[] = [];
+  showModifAppartementInput: boolean = false;
   filteredAppartementList: Appartement[] = [];
   arrondissements: number[] = [];
   typesAppartement: string[] = [];
@@ -89,5 +91,59 @@ export class HomeComponent implements OnInit {
 
   goToNewAppartement() {
     this.router.navigate(['/ajout-appartement']);
+  }
+
+  toggleModifDateInput(CetAppartement: Appartement) {
+    CetAppartement.modificationEnCours = !CetAppartement.modificationEnCours;
+  }
+
+  dateInPast(laDate: Date): boolean {
+    const today = new Date();
+    return new Date(laDate) < today;
+  }
+
+  modifierAppartement(numappart: number, modifDate: Date) {
+
+    this.unAppartement.action = "modifier";
+    this.unAppartement.modifDate = modifDate;
+    this.unAppartement.numappart = numappart;
+
+    console.log(this.unAppartement);
+
+    if (this.dateInPast(modifDate)) {
+      alert('La date de visite doit être future.');
+      return; // Arrête l'exécution de la méthode si la date est dans le passé
+    }
+
+    // Appel du service pour vérifier la modification
+    this.proprioAppartementService.modifierAppartement(this.unAppartement).subscribe(
+      (response: any) => {
+        console.log(response.message);
+        this.router.navigate(['/home']);
+      },
+      (error: any) => {
+        alert('Un problème est survenue lors de la modification de la visite');
+        console.error('Erreur lors de la modification', error);
+      }
+    );
+  }
+
+  supprimerAppartement(numappart: number) {
+    this.unAppartement.action = "supprimer";
+    this.unAppartement.numappart = numappart;
+
+    console.log(this.unAppartement);
+
+    // Appel du service pour vérifier la modification
+    this.proprioAppartementService.supprimerAppartement(this.unAppartement).subscribe(
+      (response: any) => {
+        console.log(response.message);
+        this.router.navigate(['/home']);
+      },
+      (error: any) => {
+        alert('Un problème est survenue lors de la suppression de la visite : vous avez peut-être une visite de prévue pour cette appartement');
+        console.error('Erreur lors de la suppression', error);
+      }
+    );
   }
 }

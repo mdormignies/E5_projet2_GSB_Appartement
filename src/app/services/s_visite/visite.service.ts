@@ -25,7 +25,11 @@ export class VisiteService {
     return this.http.post(this.apiUrl, visite);
   }
 
-  getVisitesById(TheId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}?id=${TheId}`);
+  getVisitesByNumCli(TheId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?idcli=${TheId}`);
+  }
+
+  getVisitesByNumProp(TheId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?idprop=${TheId}`);
   }
 }

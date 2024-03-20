@@ -60,24 +60,41 @@
 
 <div *ngIf="numProp !== null" class="container">
     <div class="row">
-        <h6>Résultats</h6>
+        <button class="btn" (click)="goToNewAppartement()">Vous voulez mettre en location un nouvel appartement ?</button>
+        <h6>Vos annonces</h6>
         <!-- Liste des appartements -->
-        <div *ngFor="let unAppartement of appartementList" class="col s12 m4">
-            <div (click)="goToAppartement(unAppartement)" class="card" AppartementBorderCard>
+        <div *ngFor="let unAppartement of appartementList" class="col s12">
+            <div class="card mb-3">
                 <div class="card-image">
                     <img src="../../../assets/img/image.jpg" alt="Image">
                 </div>
-                <div class="card-content" style="height: 120px; overflow: hidden;">
-                    <p><strong>{{ unAppartement.rue }}</strong></p>
+                <div class="card-content">
+                    <p><strong>ID : {{ unAppartement.numappart }}</strong></p>
+                    <p><strong>Adresse : {{ unAppartement.rue }}</strong></p>
                     <p>Paris {{ unAppartement.arrondisse }}</p>
-                    <p><small>Type : {{ unAppartement.typappart }} - Libre le : {{ unAppartement.date_libre }}</small>
-                    </p>
+                    <p>Nombre d'étages : {{ unAppartement.etage }}</p>
+                    <p>Type : {{ unAppartement.typappart }}</p>
+                    <p>Libre le : {{ unAppartement.date_libre }}</p>
+                    <p>Présence d'un ascenseur : {{ unAppartement.ascenseur }}</p>
+                    <p>Préavis demandé : {{ unAppartement.preavis }}</p>
+                    <p>Prix de location : {{ unAppartement.prix_loc }} €</p>
+                    <p>Prix des charges : {{ unAppartement.prix_charg }} €</p>
+                    <p>Date de disponibilité : {{ unAppartement.date_libre }}</p>
                 </div>
                 <div class="card-action">
-                    <p>Prix de location : {{ unAppartement.prix_loc }} €</p>
+                    <button class="btn waves-effect waves-light" (click)="toggleModifDateInput(unAppartement)">Modifier</button>
+                    <button class="btn" (click)="supprimerAppartement(unAppartement.numappart)">Supprimer</button>
+                </div>
+                <div *ngIf="unAppartement.modificationEnCours" class="card-action">
+                    <form (submit)="modifierAppartement(unAppartement.numappart, unAppartement.modifDate)">
+                        <input type="date" [(ngModel)]="unAppartement.modifDate" required>
+                        <span class="helper-text red-text" *ngIf="dateInPast(unAppartement.modifDate)">La date de visite doit être future.</span>
+                        <button type="submit" class="btn waves-effect waves-light">
+                            Valider
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <button class="btn" (click)="goToNewAppartement()">Vous voulez mettre en location un nouvel appartement ?</button>
 </div>

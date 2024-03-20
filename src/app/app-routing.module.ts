@@ -17,6 +17,7 @@ import { AuthGuard } from './services/auth-guard.service';
 
 import { PersonComponent } from './composants/person/person.component';
 import { AjoutAppartementComponent } from './composants/ajout-appartement/ajout-appartement.component';
+import { AjoutDemandeComponent } from './composants/ajout-demande/ajout-demande.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/init', pathMatch: 'full' },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'login-client', component: LoginClientComponent },
   { path: 'appartement/:id', canActivate: [AuthGuard], component: AppartementComponent },
   { path: 'ajout-appartement', canActivate: [AuthGuard], component: AjoutAppartementComponent },
+  { path: 'ajout-demande/:id', canActivate: [AuthGuard], component: AjoutDemandeComponent },
   { path: 'visite', canActivate: [AuthGuard], component: VisiteComponent },
   { path: 'profil', canActivate: [AuthGuard], component: ProfilComponent },
   { path: 'people', component: PersonComponent },

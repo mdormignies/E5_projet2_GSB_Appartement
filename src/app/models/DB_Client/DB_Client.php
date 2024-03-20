@@ -47,10 +47,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo json_encode(['message' => 'Inscription réussie']);
 
+    //----------------  MODIFIER  ----------------------\\
+    } elseif ($data['action'] === 'modifier') {
+
+        $num_cli = $conn->real_escape_string($data['num_cli']);
+        $adresse_cli = $conn->real_escape_string($data['adresse_cli']);
+        $codeville_cli = $conn->real_escape_string($data['codeville_cli']);
+
+        $conn->query("UPDATE client 
+                        SET adresse_cli = '$adresse_cli', codeville_cli = '$codeville_cli' 
+                        WHERE num_cli = $num_cli ;");
+
+        echo json_encode(['message' => 'Modification réussie']);
+
+    //----------------  SUPPRIMER  ----------------------\\
+    } elseif ($data['action'] === 'supprimer') {
+
+        $num_cli = $conn->real_escape_string($data['num_cli']);
+
+        $conn->query("DELETE FROM client 
+                        WHERE num_cli = $num_cli ;");
+
+        echo json_encode(['message' => 'Suppression réussie']);
+
     //----------------  DEFAULT  ----------------------\\
     } else {
         http_response_code(400); // Bad Request
         echo json_encode(['message' => 'Action non spécifiée ou non reconnue']);
+    }
+}
+
+//------------------------------------------- CHARGER LE PROFIL -------------------------------------------------------\\
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $result = $conn->query("SELECT * FROM client WHERE num_cli = $id ;");
+
+        $data = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
     }
 }
 

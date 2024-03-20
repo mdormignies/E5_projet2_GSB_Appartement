@@ -20,4 +20,16 @@ export class ProprietaireService {
   registerProprio(proprietaire: Proprietaire): Observable<any> {
     return this.http.post(this.apiUrl , proprietaire);
   }
+
+  getProfil(TheId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?id=${TheId}`);
+  }
+
+  modifierProprio(proprietaire: Proprietaire): Observable<any> {
+    return this.http.post(this.apiUrl, proprietaire);
+  }
+
+  supprimerProprio(proprietaire: Proprietaire): Observable<any> {
+    return this.http.post(this.apiUrl, proprietaire);
+  }
 }

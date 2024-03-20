@@ -12,6 +12,8 @@ export class Appartement {
     public numeroprop: number;
 
     public action: string;
+    public modifDate: Date;
+    public modificationEnCours: boolean;
 
     constructor(
         numappart: number = 0,
@@ -26,7 +28,9 @@ export class Appartement {
         date_libre: string = '',
         numeroprop: number = 0,
         
-        action: string = ''
+        action: string = '',
+        modifDate: Date = new Date(),
+        modificationEnCours: boolean = false
     ) {
         this.numappart = numappart;
         this.rue = rue;
@@ -41,5 +45,7 @@ export class Appartement {
         this.numeroprop = numeroprop;
 
         this.action = action;
+        this.modifDate = modifDate;
+        this.modificationEnCours = modificationEnCours;
     }
 }

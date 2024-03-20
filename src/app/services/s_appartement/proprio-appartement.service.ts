@@ -20,4 +20,12 @@ export class ProprioAppartementService {
   ajouterAppartement(appartement: Appartement): Observable<any> {
     return this.http.post(this.apiUrl, appartement);
   }
+
+  modifierAppartement(appartement: Appartement): Observable<any> {
+    return this.http.post(this.apiUrl, appartement);
+  }
+
+  supprimerAppartement(appartement: Appartement) {
+    return this.http.post(this.apiUrl, appartement);
+  }
 }

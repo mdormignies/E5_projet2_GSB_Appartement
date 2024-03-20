@@ -11,6 +11,7 @@ import { AppartementComponent } from './composants/appartement/appartement/appar
 import { VisiteComponent } from './composants/visite/visite/visite.component';
 import { AjoutAppartementComponent } from './composants/ajout-appartement/ajout-appartement.component'; 
 import { AjoutVisiteComponent } from './composants/ajout-visite/ajout-visite/ajout-visite.component';
+import { AjoutDemandeComponent } from './composants/ajout-demande/ajout-demande.component';
 import { ProfilComponent } from './composants/profil/profil.component';
 import { PersonComponent } from './composants/person/person.component';
 import { FormsModule } from '@angular/forms';
@@ -36,6 +37,7 @@ import { AuthGuard } from './services/auth-guard.service';
     VisiteComponent,
     AjoutAppartementComponent,
     AjoutVisiteComponent,
+    AjoutDemandeComponent,
     ProfilComponent
     // Ajoutez d'autres composants si nécessaire
   ],

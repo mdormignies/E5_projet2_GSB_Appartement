@@ -47,10 +47,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo json_encode(['message' => 'Inscription réussie']);
 
+    //----------------  MODIFIER  ----------------------\\
+    } elseif ($data['action'] === 'modifier') {
+
+        $numeroprop = $conn->real_escape_string($data['numeroprop']);
+        $adresse = $conn->real_escape_string($data['adresse_prop']);
+        $code_ville = $conn->real_escape_string($data['codeville_prop']);
+
+        $conn->query("UPDATE proprietaire 
+                        SET adresse = '$adresse', code_ville = '$code_ville' 
+                        WHERE numeroprop = $numeroprop ;");
+
+        echo json_encode(['message' => 'Modification réussie']);
+
+    //----------------  SUPPRIMER  ----------------------\\
+    } elseif ($data['action'] === 'supprimer') {
+
+        $numeroprop = $conn->real_escape_string($data['numeroprop']);
+
+        $conn->query("DELETE FROM proprietaire 
+                        WHERE numeroprop = $numeroprop ;");
+
+        echo json_encode(['message' => 'Suppression réussie']);
+
     //----------------  DEFAULT  ----------------------\\
     } else {
         http_response_code(400); // Bad Request
         echo json_encode(['message' => 'Action non spécifiée ou non reconnue']);
+    }
+}
+
+//------------------------------------------- CHARGER LE PROFIL -------------------------------------------------------\\
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $result = $conn->query("SELECT proprietaire.numeroprop, nom, prenom, adresse, code_ville, tel,
+                                        (SUM(prix_loc) + SUM(prix_charg)) * 0.93 AS revenu
+                                    FROM proprietaire JOIN appartement ON proprietaire.numeroprop = appartement.numeroprop
+                                    WHERE proprietaire.numeroprop = $id AND appartement.numeroprop = $id ;");
+
+        $data = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
     }
 }
 

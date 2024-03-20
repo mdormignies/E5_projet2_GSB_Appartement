@@ -64,13 +64,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //------------------------------------------- CHARGER LA LISTE DES VISITES -------------------------------------------------------\\
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_GET['id'])) {
-            $id = $_GET['id'];
+    if (isset($_GET['idcli'])) {
+            $id = $_GET['idcli'];
             $result = $conn->query("SELECT client.nom_cli, client.prenom_cli, proprietaire.nom, proprietaire.prenom, visiter.date_visite, appartement.numappart, client.num_cli, proprietaire.numeroprop
                                     FROM client JOIN visiter ON client.num_cli = visiter.num_cli
                                     JOIN appartement ON visiter.numappart = appartement.numappart
                                     JOIN proprietaire ON proprietaire.numeroprop = appartement.numeroprop
-                                    WHERE visiter.num_cli = $id OR proprietaire.numeroprop = $id ;");
+                                    WHERE visiter.num_cli = $id;");
+    }
+
+    if (isset($_GET['idprop'])) {
+        $id = $_GET['idprop'];
+        $result = $conn->query("SELECT client.nom_cli, client.prenom_cli, proprietaire.nom, proprietaire.prenom, visiter.date_visite, appartement.numappart, client.num_cli, proprietaire.numeroprop
+                                FROM client JOIN visiter ON client.num_cli = visiter.num_cli
+                                JOIN appartement ON visiter.numappart = appartement.numappart
+                                JOIN proprietaire ON proprietaire.numeroprop = appartement.numeroprop
+                                WHERE proprietaire.numeroprop = $id ;");
+    }
 
         $data = array();
 
@@ -80,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         header('Content-Type: application/json');
         echo json_encode($data);
-    }
 }
 
 ?>

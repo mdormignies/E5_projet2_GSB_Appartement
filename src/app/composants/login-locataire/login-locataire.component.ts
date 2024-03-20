@@ -34,7 +34,7 @@ export class LoginLocataireComponent {
       (response: any) => {
         console.log(response.message);
         this.authService.login(this.loginLocataire.numeroloc);  // Activer l'authentification et accéder au site
-        this.router.navigate(['/home']);
+        this.router.navigate(['/profil']);
       },
       (error: any) => {
         alert('La connexion a échoué. Veuillez vérifier vos informations.');

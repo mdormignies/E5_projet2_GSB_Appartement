@@ -32,10 +32,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(['message' => 'Échec de l\'authentification']);
         }
 
+        //----------------  AJOUTER  ----------------------\\
+    } elseif ($data['action'] === 'ajouter') {
+        
+        $nom_loc = $conn->real_escape_string($data['nom_loc']);
+        $prenom_loc = $conn->real_escape_string($data['prenom_loc']);
+        $rib = $conn->real_escape_string($data['rib']);
+        $datenaiss = $conn->real_escape_string($data['datenaiss']);
+        $tel_loc = $conn->real_escape_string($data['tel_loc']);
+        $mdp_loc = $conn->real_escape_string($data['mdp_loc']);
+        $tel_banque = $conn->real_escape_string($data['tel_banque']);
+        $numappart = $conn->real_escape_string($data['numappart']);
+
+        $conn->query("INSERT INTO locataire (nom_loc, prenom_loc, r_i_b, datenaiss, tel_loc, mdp_loc, tel_banque, numappart) 
+                        VALUES ('$nom_loc', '$prenom_loc', $rib, '$datenaiss', '$tel_loc', '$mdp_loc', '$tel_banque', $numappart);");
+
+        echo json_encode(['message' => 'Inscription réussie']);
+
+    //----------------  MODIFIER  ----------------------\\
+    } elseif ($data['action'] === 'modifier') {
+
+        $numeroloc = $conn->real_escape_string($data['numeroloc']);
+        $tel_loc = $conn->real_escape_string($data['tel_loc']);
+
+        $conn->query("UPDATE locataire 
+                        SET tel_loc = '$tel_loc'
+                        WHERE numeroloc = $numeroloc ;");
+
+        echo json_encode(['message' => 'Modification réussie']);
+
+    //----------------  SUPPRIMER  ----------------------\\
+    } elseif ($data['action'] === 'supprimer') {
+
+        $numeroloc = $conn->real_escape_string($data['numeroloc']);
+
+        $conn->query("DELETE FROM locataire 
+                        WHERE numeroloc = $numeroloc ;");
+
+        echo json_encode(['message' => 'Suppression réussie']);
+
     //----------------  DEFAULT  ----------------------\\
     } else {
         http_response_code(400); // Bad Request
         echo json_encode(['message' => 'Action non spécifiée ou non reconnue']);
+    }
+}
+
+//------------------------------------------- CHARGER LE PROFIL -------------------------------------------------------\\
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $result = $conn->query("SELECT numeroloc, nom_loc, prenom_loc, datenaiss, tel_loc, rue, arrondisse, SUM(prix_loc+prix_charg) AS loyer
+                                    FROM locataire JOIN appartement ON locataire.numappart = appartement.numappart
+                                    WHERE numeroloc = $id ;");
+
+        $data = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
     }
 }
 
