@@ -16,7 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $id = $_GET['id'];
         $result = $conn->query("SELECT * FROM appartement WHERE numappart = $id");
     } else {
-        $result = $conn->query("SELECT * FROM appartement");
+        $result = $conn->query("SELECT locataire.numeroloc, appartement.*
+                                FROM locataire
+                                RIGHT JOIN appartement ON locataire.numappart = appartement.numappart
+                                WHERE locataire.numeroloc IS NULL;"); // Envoie les appartements sans locataire seulement
     }
 
     $data = array();

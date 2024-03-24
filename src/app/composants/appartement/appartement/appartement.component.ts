@@ -47,7 +47,7 @@ export class AppartementComponent implements OnInit {
     );
   }
 
-  goToNewLocataire(appartement: Appartement) {
+  goToNewDemande(appartement: Appartement) {
     this.router.navigate(['/ajout-demande', appartement.numappart]);
   }
 

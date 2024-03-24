@@ -37,22 +37,23 @@ CREATE TABLE IF NOT EXISTS `appartement` (
   PRIMARY KEY (`numappart`),
   KEY `numeroprop` (`numeroprop`),
   CONSTRAINT `appartement_ibfk_1` FOREIGN KEY (`numeroprop`) REFERENCES `proprietaire` (`numeroprop`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table test-angular.appartement : ~11 rows (environ)
+-- Listage des données de la table test-angular.appartement : ~12 rows (environ)
 DELETE FROM `appartement`;
 INSERT INTO `appartement` (`numappart`, `rue`, `arrondisse`, `etage`, `typappart`, `prix_loc`, `prix_charg`, `ascenseur`, `preavis`, `date_libre`, `numeroprop`) VALUES
 	(1, 'Rue de la République', 3, 17, 'T2', 8500.20, 20.20, 1, 1, '2024-03-30', 1),
 	(12, 'Rue de la Paix', 1, 3, 'T2', 1200.00, 100.00, 1, 1, '2024-02-15', 1),
-	(13, 'Avenue des Champs-Élysées', 8, 6, 'Studio', 1500.00, 120.00, 1, 1, '2024-03-01', 5),
 	(14, 'Boulevard Saint-Germain', 5, 2, 'T3', 1800.00, 150.00, 0, 1, '2024-02-28', 1),
 	(15, 'Rue de Rivoli', 4, 4, 'Studio', 1300.00, 100.00, 0, 1, '2024-02-20', 2),
-	(16, 'Avenue Montaigne', 8, 5, 'T2', 2000.00, 180.00, 1, 1, '2024-02-25', 4),
 	(17, 'Rue du Faubourg Saint-Honoré', 8, 3, 'Studio', 1400.00, 120.00, 1, 1, '2024-02-18', 9),
 	(18, 'Rue de la Pompe', 16, 7, 'T4', 2500.00, 200.00, 1, 1, '2024-03-05', 1),
 	(19, 'Avenue Foch', 16, 1, 'T5', 3000.00, 250.00, 0, 1, '2024-03-10', 3),
 	(21, 'Rue Saint-Antoine', 4, 3, 'Studio', 1350.00, 100.00, 1, 1, '2024-03-28', 1),
-	(29, '68 Rue de la rue qui est à côté', 2, 5, 'T4', 9600.00, 400.00, 1, 1, '2024-06-30', 2);
+	(29, '68 Rue de la rue qui est à côté', 2, 5, 'T4', 9600.00, 400.00, 1, 1, '2024-06-30', 2),
+	(30, '69 rue de Maxime', 5, 0, 'T4', 5222.00, -555.00, 1, 1, '2024-03-29', 1),
+	(31, '69 rue de Maxime', 5, 0, 'Studio', 0.00, -555.00, 0, 0, '2024-03-29', 10),
+	(32, '69 rue de Maxime', 5, 0, 'Studio', 0.00, -555.00, 0, 0, '2024-03-29', 10);
 
 -- Listage de la structure de table test-angular. client
 DROP TABLE IF EXISTS `client`;
@@ -65,14 +66,16 @@ CREATE TABLE IF NOT EXISTS `client` (
   `codeville_cli` varchar(30) NOT NULL,
   `tel_cli` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`num_cli`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table test-angular.client : ~3 rows (environ)
+-- Listage des données de la table test-angular.client : ~5 rows (environ)
 DELETE FROM `client`;
 INSERT INTO `client` (`num_cli`, `mdp_cli`, `nom_cli`, `prenom_cli`, `adresse_cli`, `codeville_cli`, `tel_cli`) VALUES
-	(1, 'a', 'test', 'test', '1 avenue du test', '75001', '0601020304'),
+	(1, 'a', 'test', 'test', '1 avenue des tests', '75001', '0601020304'),
 	(2, 'password', 'Nom', 'Prenom', '5 Rue du quoi', '75009', '0123456789'),
-	(9, 'a', 'Maxime', 'D', '80 Avenue de l\'amusement', '75006', '0626548452');
+	(9, 'a', 'Maxime', 'D', '80 Avenue de l\'amusement', '75006', '0626548452'),
+	(10, 'vasile', 'bors', 'vasile', 'Avenue trompignon', '75003', '0151236322'),
+	(11, 'Vasile', 'bors', 'vasIlE', '80 Avenue de l\'amusement', '75003', '0151236322');
 
 -- Listage de la structure de table test-angular. demande
 DROP TABLE IF EXISTS `demande`;
@@ -104,12 +107,14 @@ CREATE TABLE IF NOT EXISTS `locataire` (
   PRIMARY KEY (`numeroloc`),
   UNIQUE KEY `numappart` (`numappart`),
   CONSTRAINT `locataire_ibfk_1` FOREIGN KEY (`numappart`) REFERENCES `appartement` (`numappart`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table test-angular.locataire : ~1 rows (environ)
+-- Listage des données de la table test-angular.locataire : ~3 rows (environ)
 DELETE FROM `locataire`;
 INSERT INTO `locataire` (`numeroloc`, `mdp_loc`, `nom_loc`, `prenom_loc`, `datenaiss`, `tel_loc`, `r_i_b`, `tel_banque`, `numappart`) VALUES
-	(1, 'auguste', 'Luyedisa', 'Auguste', '2004-09-04', '0123456789', 123456789, '0987654321', 1);
+	(1, 'auguste', 'Luyedisa', 'Auguste', '2004-09-04', '0123456789', 123456789, '0987654321', 1),
+	(2, 'a', 'test', 'test', '1999-01-20', '0601020304', 784652256, '0121232625', 12),
+	(3, 'vasile', 'bors', 'vasile', '2024-08-18', '012345678a', 55555555, '0151236322', 18);
 
 -- Listage de la structure de table test-angular. proprietaire
 DROP TABLE IF EXISTS `proprietaire`;
@@ -122,20 +127,20 @@ CREATE TABLE IF NOT EXISTS `proprietaire` (
   `code_ville` varchar(50) NOT NULL,
   `tel` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`numeroprop`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table test-angular.proprietaire : ~9 rows (environ)
 DELETE FROM `proprietaire`;
 INSERT INTO `proprietaire` (`numeroprop`, `mdp_prop`, `nom`, `prenom`, `adresse`, `code_ville`, `tel`) VALUES
-	(1, 'vasile', 'Vasile', 'Bugneac', '3 rue de quelque chose', '75003', '0645657585'),
+	(1, 'vasile', 'Vasile', 'Bugneac', '3 rue de quelqu\'un', '75003', '0645657585'),
 	(2, 'auguste', 'Luyedisa', 'Auguste', 'Avenue trompignon', '75008', '0151236325'),
 	(3, 'mdp1', 'Jean', 'Dupont', '5 rue de la Paix', '75002', '0654321098'),
-	(4, 'mdp2', 'Marie', 'Martin', '10 avenue des Champs-Élysées', '75008', '0156789345'),
-	(5, 'mdp3', 'Pierre', 'Durand', '15 rue de Rivoli', '75001', '0678901234'),
 	(6, 'mdp4', 'Sophie', 'Leclerc', '20 boulevard Haussmann', '75009', '0145678901'),
 	(7, 'mdp5', 'Paul', 'Lefebvre', '25 rue de la République', '75004', '0678902345'),
 	(8, 'mdp6', 'Isabelle', 'Girard', '30 avenue Montaigne', '75008', '0156789012'),
-	(9, 'mdp7', 'Jacques', 'Bonnet', '35 rue du Faubourg Saint-Honoré', '75008', '0643210987');
+	(9, 'mdp7', 'Jacques', 'Bonnet', '35 rue du Faubourg Saint-Honoré', '75008', '0643210987'),
+	(10, 'vasile', 'Maxime', 'D', '80 Avenue de l\'amusement', '75006', '0626548452'),
+	(11, 'root', 'Stinca', 'Daniela', 'GFjrcy j r jyjrx ', '75006', '0626548452');
 
 -- Listage de la structure de table test-angular. visiter
 DROP TABLE IF EXISTS `visiter`;
@@ -152,8 +157,10 @@ CREATE TABLE IF NOT EXISTS `visiter` (
 -- Listage des données de la table test-angular.visiter : ~2 rows (environ)
 DELETE FROM `visiter`;
 INSERT INTO `visiter` (`numappart`, `num_cli`, `date_visite`) VALUES
+	(18, 1, '2024-03-28'),
 	(18, 9, '2024-06-12'),
-	(29, 2, '2024-03-30');
+	(29, 2, '2024-03-30'),
+	(29, 10, '2024-03-30');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -40,6 +40,7 @@ export class LoginClientComponent implements OnInit {
       (response: any) => {
         console.log(response.message);
         this.authService.login(this.loginClient.num_cli);  // Activer l'authentification et accéder au site
+        this.clientSessionService.setNumCliSubject(this.loginClient.num_cli);
         this.router.navigate(['/home']);
       },
       (error: any) => {

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, tap, throwError } from "rxjs";
 
 import { ProprietaireService } from '../../services/s_proprietaire/proprietaire.service';
+import { ProprietaireSessionService } from "../../services/sessionsServices/proprietaire-session.service";
 import { ProprietaireLiaisonAuthService } from "../../services/s_liaison-auth/proprietaire-liaison-auth.service";
 
 @Component({
@@ -16,7 +17,11 @@ export class LoginProprietaireComponent {
   loginProprio: Proprietaire = new Proprietaire();
   newProprio: Proprietaire = new Proprietaire();
 
-  constructor(private router: Router, private ProprietaireService: ProprietaireService, private authService: ProprietaireLiaisonAuthService) {}
+  constructor(
+    private router: Router,
+    private ProprietaireService: ProprietaireService,
+    private proprietaireSessionService: ProprietaireSessionService,
+    private authService: ProprietaireLiaisonAuthService) {}
 
   ngOnInit() { }
 
@@ -35,6 +40,7 @@ export class LoginProprietaireComponent {
       (response: any) => {
         console.log(response.message);
         this.authService.login(this.loginProprio.numeroprop);  // Activer l'authentification et accéder au site
+        this.proprietaireSessionService.setNumPropSubject(this.loginProprio.numeroprop);
         this.router.navigate(['/home']);
       },
       (error: any) => {

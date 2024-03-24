@@ -1,20 +1,20 @@
 <div *ngIf="numCli !== null" class="container">
     <div class="row">
         <!-- Tri par arrondissement -->
-        <div class="col s12 m4">
+        <div class="col s12 m6">
             <h6>Chercher dans un arrondissement précis ?</h6>
             <!-- Boutons de tri par arrondissement -->
             <div>
                 <button class="btn" (click)="sortByArrondissement('all')">Tous</button>
                 <button *ngFor="let arrondissement of arrondissements" class="btn"
                     (click)="sortByArrondissement(arrondissement)">
-                    Arr. {{ arrondissement }}
+                    {{ arrondissement }}
                 </button>
             </div>
         </div>
 
         <!-- Tri par type d'appartement -->
-        <div class="col s12 m4">
+        <div class="col s12 m6">
             <h6>Chercher un type d'appartement précis ?</h6>
             <!-- Boutons de tri par type d'appartement -->
             <div>
@@ -24,20 +24,23 @@
                 </button>
             </div>
         </div>
-
+    </div>
+    <div class="row">
         <!-- Tri par prix de location -->
-        <div class="col s12 m4">
-            <h6>Vous avez un budget précis ?</h6>
-            <div>
-                <input type="number" placeholder="Prix minimum" [(ngModel)]="prixMin" min="0">
-                <input type="number" placeholder="Prix maximum" [(ngModel)]="prixMax" min="0">
-                <button class="btn" (click)="sortByPrixLocation()">Rechercher</button>
+        <div class="col s12 m6 offset-m3"> <!-- Utilisation de "m6" pour les tailles moyennes et "offset-m3" pour centrer -->
+            <div class="center">
+                <h6>Vous avez un budget précis ?</h6>
+                <div>
+                    <input type="number" placeholder="Prix minimum" [(ngModel)]="prixMin" min="0">
+                    <input type="number" placeholder="Prix maximum" [(ngModel)]="prixMax" min="0">
+                    <button class="btn" (click)="sortByPrixLocation()">Rechercher</button>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <h6>Résultats</h6>
+        <h4 class="center-align">Les appartements actuellement libre</h4>
         <!-- Liste des appartements -->
         <div *ngFor="let unAppartement of filteredAppartementList" class="col s12 m4">
             <div (click)="goToAppartement(unAppartement)" class="card" AppartementBorderCard>
@@ -60,10 +63,9 @@
 
 <div *ngIf="numProp !== null" class="container">
     <div class="row">
-        <button class="btn" (click)="goToNewAppartement()">Vous voulez mettre en location un nouvel appartement ?</button>
-        <h6>Vos annonces</h6>
+        <h4 class="center-align">Vos annonces</h4>
         <!-- Liste des appartements -->
-        <div *ngFor="let unAppartement of appartementList" class="col s12">
+        <div *ngFor="let unAppartement of proprioAppartementList" class="col s12">
             <div class="card mb-3">
                 <div class="card-image">
                     <img src="../../../assets/img/image.jpg" alt="Image">
@@ -80,6 +82,9 @@
                     <p>Prix de location : {{ unAppartement.prix_loc }} €</p>
                     <p>Prix des charges : {{ unAppartement.prix_charg }} €</p>
                     <p>Date de disponibilité : {{ unAppartement.date_libre }}</p>
+
+                    <h6 *ngIf="unAppartement.numeroloc !== null"><strong>Louer par : {{ unAppartement.prenom_loc }} {{ unAppartement.nom_loc }}</strong></h6>
+                    <h6 *ngIf="unAppartement.numeroloc === null"><strong>Libre</strong></h6>
                 </div>
                 <div class="card-action">
                     <button class="btn waves-effect waves-light" (click)="toggleModifDateInput(unAppartement)">Modifier</button>
@@ -97,4 +102,5 @@
             </div>
         </div>
     </div>
+    <button class="btn" (click)="goToNewAppartement()">Vous voulez mettre en location un nouvel appartement ?</button>
 </div>

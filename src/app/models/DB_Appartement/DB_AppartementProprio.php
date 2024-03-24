@@ -17,7 +17,10 @@ require_once('../db.php');
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['id'])) {
             $id = $_GET['id'];
-            $result = $conn->query("SELECT * FROM appartement WHERE numeroprop = $id ;");
+            $result = $conn->query("SELECT locataire.numeroloc, locataire.nom_loc, locataire.prenom_loc, appartement.*
+                                    FROM locataire
+                                    RIGHT JOIN appartement ON locataire.numappart = appartement.numappart
+                                    WHERE numeroprop = $id;");
 
         $data = array();
 

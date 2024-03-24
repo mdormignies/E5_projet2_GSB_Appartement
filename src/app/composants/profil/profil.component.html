@@ -44,7 +44,8 @@
                         <p>Nom : {{ proprietaire.nom }} {{ proprietaire.prenom }} </p>
                         <p>Adresse : {{ proprietaire.adresse }} {{ proprietaire.code_ville }}</p>
                         <p>Téléphone : {{ proprietaire.tel }}</p>
-                        <p><strong>Mes revenus mensuels : {{ proprietaire.revenu }} € NET</strong></p>
+                        <p><strong>Mes revenus mensuels : {{ proprietaire.revenu }} € NET</strong></p><br>
+                        <p><strong>GSB récupère : {{ proprietaire.charg_a_gsb }} €</strong></p>
                     </div>
                     <div class="card-action">
                         <button class="btn waves-effect waves-light" (click)="toggleModif()">
@@ -92,7 +93,8 @@
                     </div>
                     <div *ngIf="afficheModif === true" class="card-action">
                         <form (submit)="modifierLocataire(locataire.tel_loc)">
-                            <input type="text" [(ngModel)]="locataire.tel_loc" required>
+                            <label for="tel_loc" class="active">Votre numéro de téléphone</label>
+                            <input id="tel_loc" type="text" [(ngModel)]="locataire.tel_loc" required>
                             <button type="submit" class="btn waves-effect waves-light">
                                 Valider
                             </button>

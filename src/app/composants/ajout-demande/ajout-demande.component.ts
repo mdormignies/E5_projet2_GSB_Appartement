@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
+import { Demande } from "../../models/class_demande/demande";
 import { Locataire } from "../../models/class_locataire/locataire";
 import { Client } from "../../models/class_client/client";
 import { Router, ActivatedRoute } from '@angular/router';
 import { catchError, tap, throwError } from "rxjs";
 
+import { DemandeService } from "../../services/s_demande/demande.service";
 import { ClientService } from "../../services/s_client/client.service";
 import { LocataireService } from "../../services/s_locataire/locataire.service";
 
@@ -16,12 +18,14 @@ import { LocataireSessionService } from "../../services/sessionsServices/locatai
   styleUrl: './ajout-demande.component.css'
 })
 export class AjoutDemandeComponent implements OnInit {
+  newDemande: Demande = new Demande();
   newLocataire: Locataire = new Locataire();
   ceClient: any;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private demandeService: DemandeService,
     private locataireService: LocataireService,
     private clientService: ClientService,
     private clientSessionService: ClientSessionService
@@ -33,7 +37,7 @@ export class AjoutDemandeComponent implements OnInit {
     if (idParam !== null) {
       const appartementId = +idParam;
       // Charger les détails de l'appartement en fonction de son ID
-      this.newLocataire.numappart = appartementId;
+      this.newDemande.d_numappart = appartementId;
     } else {
       alert('Il y a quelque chose qui cloche...');
       this.router.navigate(['/home']);

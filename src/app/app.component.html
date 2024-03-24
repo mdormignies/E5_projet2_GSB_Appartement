@@ -1,16 +1,19 @@
 <div class="navbar-fixed">
   <nav>
-    <div class="nav-wrapper">
-      <a routerLink="/home" class="brand-logo">
+    <div class="nav-wrapper" *ngIf="numCli !== null || numProp !== null">
+      <a routerLink="/home" class="brand-logo" *ngIf="numCli !== null || numProp !== null">
         <img class="responsive-img" src="../assets/img/logo.png" alt="Logo" style="margin-left: 20px; height: 64px; width: auto;">
       </a>
+
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a routerLink="/demande">Mes demandes</a></li>
         <li><a routerLink="/visite">Mes visites</a></li>
         <li><a routerLink="/profil">Profil</a></li>
         <!-- Ajoutez d'autres liens pour d'autres pages si nécessaire -->
       </ul>
     </div>
   </nav>
+
 </div>
 
 <div class="container">

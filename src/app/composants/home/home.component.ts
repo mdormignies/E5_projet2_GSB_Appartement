@@ -16,6 +16,7 @@ import { ProprietaireSessionService } from "../../services/sessionsServices/prop
 export class HomeComponent implements OnInit {
   unAppartement: Appartement = new Appartement();
   appartementList: Appartement[] = [];
+  proprioAppartementList: any;
   showModifAppartementInput: boolean = false;
   filteredAppartementList: Appartement[] = [];
   arrondissements: number[] = [];
@@ -42,8 +43,8 @@ export class HomeComponent implements OnInit {
     this.numProp = this.proprietaireSessionService.getNumProp();
     if (this.numProp !== null) {
       this.proprioAppartementService.getAppartementById(this.numProp).subscribe((LesAppartements: Appartement[]) => {
-        this.appartementList = LesAppartements;
-        console.log(this.appartementList) ;
+        this.proprioAppartementList = LesAppartements;
+        console.log(this.proprioAppartementList);
       });
     }
   }
