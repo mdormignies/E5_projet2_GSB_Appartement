@@ -9,6 +9,7 @@ import { LoginClientComponent } from './composants/login-client/login-client.com
 import { AppartementComponent } from './composants/appartement/appartement/appartement.component';
 import { VisiteComponent } from './composants/visite/visite/visite.component';
 import { ProfilComponent } from './composants/profil/profil.component';
+import { DemandeComponent } from './composants/demande/demande.component';
 
 import { ClientLiaisonAuthService } from './services/s_liaison-auth/client-liaision-auth.service';
 import { LocataireLiaisonAuthService } from './services/s_liaison-auth/locataire-liaison-auth.service';
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'ajout-demande/:id', canActivate: [AuthGuard], component: AjoutDemandeComponent },
   { path: 'visite', canActivate: [AuthGuard], component: VisiteComponent },
   { path: 'profil', canActivate: [AuthGuard], component: ProfilComponent },
+  { path: 'demande', canActivate: [AuthGuard], component: DemandeComponent },
   { path: 'people', component: PersonComponent },
   // Ajoutez d'autres routes si nécessaire
 ];

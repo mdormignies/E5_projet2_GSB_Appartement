@@ -39,108 +39,117 @@ CREATE TABLE IF NOT EXISTS `appartement` (
   CONSTRAINT `appartement_ibfk_1` FOREIGN KEY (`numeroprop`) REFERENCES `proprietaire` (`numeroprop`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table test-angular.appartement : ~12 rows (environ)
+-- Listage des données de la table test-angular.appartement : ~10 rows (environ)
 DELETE FROM `appartement`;
 INSERT INTO `appartement` (`numappart`, `rue`, `arrondisse`, `etage`, `typappart`, `prix_loc`, `prix_charg`, `ascenseur`, `preavis`, `date_libre`, `numeroprop`) VALUES
-	(1, 'Rue de la République', 3, 17, 'T2', 8500.20, 20.20, 1, 1, '2024-03-30', 1),
-	(12, 'Rue de la Paix', 1, 3, 'T2', 1200.00, 100.00, 1, 1, '2024-02-15', 1),
-	(14, 'Boulevard Saint-Germain', 5, 2, 'T3', 1800.00, 150.00, 0, 1, '2024-02-28', 1),
-	(15, 'Rue de Rivoli', 4, 4, 'Studio', 1300.00, 100.00, 0, 1, '2024-02-20', 2),
+	(1, 'Rue de la République', 3, 17, 'T2', 8500.20, 20.20, 1, 1, '2024-03-30', 3),
+	(12, 'Rue de la Paix', 1, 3, 'T2', 1200.00, 100.00, 1, 1, '2024-02-15', 6),
+	(14, 'Boulevard Saint-Germain', 5, 2, 'T3', 1800.00, 150.00, 0, 1, '2024-02-28', 8),
+	(15, 'Rue de Rivoli', 4, 4, 'Studio', 1300.00, 100.00, 0, 1, '2024-02-20', 7),
 	(17, 'Rue du Faubourg Saint-Honoré', 8, 3, 'Studio', 1400.00, 120.00, 1, 1, '2024-02-18', 9),
-	(18, 'Rue de la Pompe', 16, 7, 'T4', 2500.00, 200.00, 1, 1, '2024-03-05', 1),
+	(18, 'Rue de la Pompe', 16, 7, 'T4', 2500.00, 200.00, 1, 1, '2024-03-05', 3),
 	(19, 'Avenue Foch', 16, 1, 'T5', 3000.00, 250.00, 0, 1, '2024-03-10', 3),
-	(21, 'Rue Saint-Antoine', 4, 3, 'Studio', 1350.00, 100.00, 1, 1, '2024-03-28', 1),
-	(29, '68 Rue de la rue qui est à côté', 2, 5, 'T4', 9600.00, 400.00, 1, 1, '2024-06-30', 2),
-	(30, '69 rue de Maxime', 5, 0, 'T4', 5222.00, -555.00, 1, 1, '2024-03-29', 1),
-	(31, '69 rue de Maxime', 5, 0, 'Studio', 0.00, -555.00, 0, 0, '2024-03-29', 10),
-	(32, '69 rue de Maxime', 5, 0, 'Studio', 0.00, -555.00, 0, 0, '2024-03-29', 10);
+	(21, 'Rue Saint-Antoine', 4, 3, 'Studio', 1350.00, 100.00, 1, 1, '2024-03-28', 6),
+	(29, '68 Rue de la rue qui est à côté', 2, 5, 'T4', 9600.00, 400.00, 1, 1, '2024-06-30', 7),
+	(30, '69 rue de Maxime', 5, 0, 'T4', 5222.00, -555.00, 1, 1, '2024-03-29', 7);
 
 -- Listage de la structure de table test-angular. client
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE IF NOT EXISTS `client` (
   `num_cli` int NOT NULL AUTO_INCREMENT,
+  `email_cli` varchar(50) NOT NULL,
   `mdp_cli` varchar(255) DEFAULT NULL,
   `nom_cli` varchar(30) NOT NULL,
   `prenom_cli` varchar(20) NOT NULL,
   `adresse_cli` varchar(50) NOT NULL,
   `codeville_cli` varchar(30) NOT NULL,
-  `tel_cli` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`num_cli`)
+  `tel_cli` varchar(20) NOT NULL,
+  PRIMARY KEY (`num_cli`),
+  UNIQUE KEY `email_cli` (`email_cli`),
+  UNIQUE KEY `tel_cli` (`tel_cli`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table test-angular.client : ~5 rows (environ)
+-- Listage des données de la table test-angular.client : ~4 rows (environ)
 DELETE FROM `client`;
-INSERT INTO `client` (`num_cli`, `mdp_cli`, `nom_cli`, `prenom_cli`, `adresse_cli`, `codeville_cli`, `tel_cli`) VALUES
-	(1, 'a', 'test', 'test', '1 avenue des tests', '75001', '0601020304'),
-	(2, 'password', 'Nom', 'Prenom', '5 Rue du quoi', '75009', '0123456789'),
-	(9, 'a', 'Maxime', 'D', '80 Avenue de l\'amusement', '75006', '0626548452'),
-	(10, 'vasile', 'bors', 'vasile', 'Avenue trompignon', '75003', '0151236322'),
-	(11, 'Vasile', 'bors', 'vasIlE', '80 Avenue de l\'amusement', '75003', '0151236322');
+INSERT INTO `client` (`num_cli`, `email_cli`, `mdp_cli`, `nom_cli`, `prenom_cli`, `adresse_cli`, `codeville_cli`, `tel_cli`) VALUES
+	(1, 'test@test.test', 'a', 'test', 'test', '1 avenue des tests', '75001', '0601020304'),
+	(2, 'nom.prenom@gmail.test', 'password', 'Nom', 'Prenom', '5 Rue du quoi', '75009', '0123456789'),
+	(9, 'dmaxime@gmail.com', 'a', 'Maxime', 'D', '80 Avenue de l\'amusement', '75006', '0626548452'),
+	(10, 'vasile.bors@yahoo.info', 'vasile', 'bors', 'vasile', 'Avenue trompignon', '75003', '0151236322');
 
 -- Listage de la structure de table test-angular. demande
 DROP TABLE IF EXISTS `demande`;
 CREATE TABLE IF NOT EXISTS `demande` (
   `num_dem` int NOT NULL AUTO_INCREMENT,
-  `type_dem` varchar(10) NOT NULL,
-  `date_limite` date DEFAULT NULL,
+  `statut_dem` varchar(30) NOT NULL,
+  `numappart` int NOT NULL,
   `num_cli` int NOT NULL,
+  `numeroprop` int NOT NULL,
   PRIMARY KEY (`num_dem`),
   KEY `num_cli` (`num_cli`),
-  CONSTRAINT `demande_ibfk_1` FOREIGN KEY (`num_cli`) REFERENCES `client` (`num_cli`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `demande_ibfk_1` (`numappart`),
+  KEY `demande_ibfk_3` (`numeroprop`),
+  CONSTRAINT `demande_ibfk_1` FOREIGN KEY (`numappart`) REFERENCES `appartement` (`numappart`) ON DELETE CASCADE,
+  CONSTRAINT `demande_ibfk_2` FOREIGN KEY (`num_cli`) REFERENCES `client` (`num_cli`) ON DELETE CASCADE,
+  CONSTRAINT `demande_ibfk_3` FOREIGN KEY (`numeroprop`) REFERENCES `proprietaire` (`numeroprop`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table test-angular.demande : ~0 rows (environ)
 DELETE FROM `demande`;
+INSERT INTO `demande` (`num_dem`, `statut_dem`, `numappart`, `num_cli`, `numeroprop`) VALUES
+	(1, 'Accepté', 30, 9, 7),
+	(2, 'En cours', 12, 9, 6);
 
 -- Listage de la structure de table test-angular. locataire
 DROP TABLE IF EXISTS `locataire`;
 CREATE TABLE IF NOT EXISTS `locataire` (
   `numeroloc` int NOT NULL AUTO_INCREMENT,
-  `mdp_loc` varchar(255) DEFAULT NULL,
+  `email_loc` varchar(50) NOT NULL,
+  `mdp_loc` varchar(255) NOT NULL,
   `nom_loc` varchar(30) NOT NULL,
   `prenom_loc` varchar(20) NOT NULL,
   `datenaiss` date NOT NULL,
-  `tel_loc` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `tel_loc` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `r_i_b` int NOT NULL,
   `tel_banque` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `numappart` int NOT NULL,
   PRIMARY KEY (`numeroloc`),
+  UNIQUE KEY `email_loc` (`email_loc`),
+  UNIQUE KEY `tel_loc` (`tel_loc`),
   UNIQUE KEY `numappart` (`numappart`),
   CONSTRAINT `locataire_ibfk_1` FOREIGN KEY (`numappart`) REFERENCES `appartement` (`numappart`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table test-angular.locataire : ~3 rows (environ)
+-- Listage des données de la table test-angular.locataire : ~2 rows (environ)
 DELETE FROM `locataire`;
-INSERT INTO `locataire` (`numeroloc`, `mdp_loc`, `nom_loc`, `prenom_loc`, `datenaiss`, `tel_loc`, `r_i_b`, `tel_banque`, `numappart`) VALUES
-	(1, 'auguste', 'Luyedisa', 'Auguste', '2004-09-04', '0123456789', 123456789, '0987654321', 1),
-	(2, 'a', 'test', 'test', '1999-01-20', '0601020304', 784652256, '0121232625', 12),
-	(3, 'vasile', 'bors', 'vasile', '2024-08-18', '012345678a', 55555555, '0151236322', 18);
+INSERT INTO `locataire` (`numeroloc`, `email_loc`, `mdp_loc`, `nom_loc`, `prenom_loc`, `datenaiss`, `tel_loc`, `r_i_b`, `tel_banque`, `numappart`) VALUES
+	(1, 'auguste@turgot.fr', 'auguste', 'Luyedisa', 'Auguste', '2004-09-04', '0123456789', 123456789, '0987654321', 1),
+	(2, 'test@test.test', 'a', 'test', 'test', '1999-01-20', '0601020304', 784652256, '0121232625', 18);
 
 -- Listage de la structure de table test-angular. proprietaire
 DROP TABLE IF EXISTS `proprietaire`;
 CREATE TABLE IF NOT EXISTS `proprietaire` (
   `numeroprop` int NOT NULL AUTO_INCREMENT,
+  `email_prop` varchar(50) NOT NULL,
   `mdp_prop` varchar(255) DEFAULT NULL,
   `nom` varchar(50) NOT NULL,
   `prenom` varchar(50) NOT NULL,
   `adresse` varchar(50) NOT NULL,
   `code_ville` varchar(50) NOT NULL,
-  `tel` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`numeroprop`)
+  `tel` varchar(20) NOT NULL,
+  PRIMARY KEY (`numeroprop`),
+  UNIQUE KEY `email_prop` (`email_prop`),
+  UNIQUE KEY `tel` (`tel`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table test-angular.proprietaire : ~9 rows (environ)
+-- Listage des données de la table test-angular.proprietaire : ~5 rows (environ)
 DELETE FROM `proprietaire`;
-INSERT INTO `proprietaire` (`numeroprop`, `mdp_prop`, `nom`, `prenom`, `adresse`, `code_ville`, `tel`) VALUES
-	(1, 'vasile', 'Vasile', 'Bugneac', '3 rue de quelqu\'un', '75003', '0645657585'),
-	(2, 'auguste', 'Luyedisa', 'Auguste', 'Avenue trompignon', '75008', '0151236325'),
-	(3, 'mdp1', 'Jean', 'Dupont', '5 rue de la Paix', '75002', '0654321098'),
-	(6, 'mdp4', 'Sophie', 'Leclerc', '20 boulevard Haussmann', '75009', '0145678901'),
-	(7, 'mdp5', 'Paul', 'Lefebvre', '25 rue de la République', '75004', '0678902345'),
-	(8, 'mdp6', 'Isabelle', 'Girard', '30 avenue Montaigne', '75008', '0156789012'),
-	(9, 'mdp7', 'Jacques', 'Bonnet', '35 rue du Faubourg Saint-Honoré', '75008', '0643210987'),
-	(10, 'vasile', 'Maxime', 'D', '80 Avenue de l\'amusement', '75006', '0626548452'),
-	(11, 'root', 'Stinca', 'Daniela', 'GFjrcy j r jyjrx ', '75006', '0626548452');
+INSERT INTO `proprietaire` (`numeroprop`, `email_prop`, `mdp_prop`, `nom`, `prenom`, `adresse`, `code_ville`, `tel`) VALUES
+	(3, 'jean.dupont@yahoo.com', 'mdp1', 'Jean', 'Dupont', '5 rue de la Paix', '75002', '0654321098'),
+	(6, 'leclerc.sophie@turgot.fr', 'mdp4', 'Sophie', 'Leclerc', '20 boulevard Haussmann', '75009', '0145678901'),
+	(7, 'p.lefebvre@gmail.com', 'mdp5', 'Paul', 'Lefebvre', '25 rue de la République', '75004', '0678902345'),
+	(8, 'i.girard@gmail.com', 'mdp6', 'Isabelle', 'Girard', '30 avenue Montaigne', '75008', '0156789012'),
+	(9, 'bonnet.jacques@turgot.fr', 'mdp7', 'Jacques', 'Bonnet', '35 rue du Faubourg Saint-Honoré', '75008', '0643210987');
 
 -- Listage de la structure de table test-angular. visiter
 DROP TABLE IF EXISTS `visiter`;
@@ -154,13 +163,10 @@ CREATE TABLE IF NOT EXISTS `visiter` (
   CONSTRAINT `visiter_ibfk_2` FOREIGN KEY (`num_cli`) REFERENCES `client` (`num_cli`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Listage des données de la table test-angular.visiter : ~2 rows (environ)
+-- Listage des données de la table test-angular.visiter : ~0 rows (environ)
 DELETE FROM `visiter`;
 INSERT INTO `visiter` (`numappart`, `num_cli`, `date_visite`) VALUES
-	(18, 1, '2024-03-28'),
-	(18, 9, '2024-06-12'),
-	(29, 2, '2024-03-30'),
-	(29, 10, '2024-03-30');
+	(30, 1, '2024-03-30');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

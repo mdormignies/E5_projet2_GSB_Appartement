@@ -29,11 +29,6 @@ export class VisiteComponent implements OnInit {
 
   ngOnInit() {
 
-    const numLoc = this.locataireSessionService.getNumLoc();
-    if (numLoc !== null) {
-      this.router.navigate(['/profil']);
-    }
-
     //------------------------- VISITES DU CLIENT ------------------------\\
 
     // Récupérer le num_cli depuis le service de session client

@@ -1,0 +1,83 @@
+<div class="container">
+
+    <!-- CLIENT -->
+    <div class="row" *ngIf="numCli !== null">
+        <h4 class="center-align" *ngIf="lesDemandes && lesDemandes.length > 0">Vos demandes en cours :</h4>
+        <div class="col s12" *ngIf="lesDemandes && lesDemandes.length > 0">
+            <div class="card horizontal" *ngFor="let uneDemande of lesDemandes">
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p><strong>ID Demande :</strong> {{ uneDemande.num_dem }}</p>
+                        <p><strong>Propriétaire :</strong> {{ uneDemande.p_nom }} {{ uneDemande.p_prenom }}</p>
+                        <p><strong>Client :</strong> {{ uneDemande.nom_cli }} {{ uneDemande.prenom_cli }}</p>
+                        <p><strong>Numéro de l'appartement :</strong> {{ uneDemande.numappart }}</p>
+
+                        <h5><strong>Statut de la demande : {{ uneDemande.statut_dem }}</strong></h5>
+                    </div>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light" (click)="supprimerDemande(uneDemande.num_dem)">
+                            Annuler ma demande
+                        </button>
+                        <button *ngIf="uneDemande.statut_dem === 'Accepté'" class="btn waves-effect waves-light" (click)="toggleLocataireInput(uneDemande)">
+                            Devenir locataire
+                        </button>
+                    </div>
+                    <div *ngIf="uneDemande.modificationEnCours" class="card-action">
+                        <form (submit)="ajouterLocataire(uneDemande)">
+                            <div class="input-field">
+                                <input id="rib" type="number" pattern="[0-9]{9}" minlength="9" maxlength="9" required [(ngModel)]="newLocataire.rib">
+                                <label for="rib" class="active">RIB (9 chiffres)</label>
+                            </div>
+                            <div class="input-field">
+                                <input #dateNaissance type="date" [max]="maxDate" required [(ngModel)]="newLocataire.datenaiss">
+                                <label for="dateNaissance" class="active">Date de naissance (Vous devez avoir 15 ans minimum)</label>
+                            </div>
+                            <div class="input-field">
+                                <input id="telephoneBanque" type="tel" pattern="0[0-9]{9}" minlength="10" maxlength="10" required [(ngModel)]="newLocataire.tel_banque">
+                                <label for="telephoneBanque" class="active">Téléphone de la banque (10 chiffres, commence par 0)</label>
+                            </div>
+                            <button type="submit" class="btn waves-effect waves-light">Valider</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12" *ngIf="lesDemandes && lesDemandes.length === 0">
+            <h4>
+                Vous n'avez envoyé aucune demande.
+            </h4>
+        </div>
+    </div>
+
+    <!-- PROPRIETAIRE -->
+    <div class="row" *ngIf="numProp !== null">
+        <h4 class="center-align" *ngIf="lesDemandes && lesDemandes.length > 0">Vous avez reçu des demandes de location :</h4>
+        <div class="col s12" *ngIf="lesDemandes && lesDemandes.length > 0">
+            <div class="card horizontal" *ngFor="let uneDemande of lesDemandes">
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p><strong>ID Demande :</strong> {{ uneDemande.num_dem }}</p>
+                        <p><strong>Propriétaire :</strong> {{ uneDemande.p_nom }} {{ uneDemande.p_prenom }}</p>
+                        <p><strong>Client :</strong> {{ uneDemande.nom_cli }} {{ uneDemande.prenom_cli }}</p>
+                        <p><strong>Numéro de l'appartement :</strong> {{ uneDemande.numappart }}</p>
+
+                        <h5><strong>Statut de la demande : {{ uneDemande.statut_dem }}</strong></h5>
+                    </div>
+                    <div class="card-action">
+                        <button class="btn waves-effect waves-light" (click)="ChangerStatutDemande(uneDemande.num_dem)">
+                            Accepter cette demande
+                        </button>
+                        <button class="btn waves-effect waves-light" (click)="supprimerDemande(uneDemande.num_dem)">
+                            Refuser cette demande
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12" *ngIf="lesDemandes && lesDemandes.length === 0">
+            <h4>
+                Vous n'avez reçu aucune demande.
+            </h4>
+        </div>
+    </div>
+</div>

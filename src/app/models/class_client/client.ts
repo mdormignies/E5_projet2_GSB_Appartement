@@ -1,5 +1,6 @@
 export class Client {
     public num_cli: number;
+    public email_cli: string;
     public mdp_cli: string;
     public nom_cli: string;
     public prenom_cli: string;
@@ -12,6 +13,7 @@ export class Client {
 
     constructor(
         num_cli: number = 0,
+        email_cli: string = '',
         mdp_cli: string = '',
         nom_cli: string = '',
         prenom_cli: string = '',
@@ -23,6 +25,7 @@ export class Client {
         action: string = ''
     ) {
         this.num_cli = num_cli;
+        this.email_cli = email_cli;
         this.mdp_cli = mdp_cli;
         this.nom_cli = nom_cli;
         this.prenom_cli = prenom_cli;

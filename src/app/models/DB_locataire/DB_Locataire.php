@@ -20,10 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //----------------  LOGIN  ----------------------\\
     if ($data['action'] === 'login') {
 
-        $numeroloc = $conn->real_escape_string($data['numeroloc']);
+        $email_loc = $conn->real_escape_string($data['email_loc']);
         $mdp_loc = $conn->real_escape_string($data['mdp_loc']);
 
-        $result = $conn->query("SELECT * FROM locataire WHERE numeroloc = $numeroloc AND mdp_loc = '$mdp_loc';");
+        $result = $conn->query("SELECT * FROM locataire WHERE email_loc = '$email_loc' AND mdp_loc = '$mdp_loc';");
 
         if ($result->num_rows > 0) {
             echo json_encode(['message' => 'Authentification réussie']);
@@ -40,14 +40,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $rib = $conn->real_escape_string($data['rib']);
         $datenaiss = $conn->real_escape_string($data['datenaiss']);
         $tel_loc = $conn->real_escape_string($data['tel_loc']);
+        $email_loc = $conn->real_escape_string($data['email_loc']);
         $mdp_loc = $conn->real_escape_string($data['mdp_loc']);
         $tel_banque = $conn->real_escape_string($data['tel_banque']);
         $numappart = $conn->real_escape_string($data['numappart']);
 
-        $conn->query("INSERT INTO locataire (nom_loc, prenom_loc, r_i_b, datenaiss, tel_loc, mdp_loc, tel_banque, numappart) 
-                        VALUES ('$nom_loc', '$prenom_loc', $rib, '$datenaiss', '$tel_loc', '$mdp_loc', '$tel_banque', $numappart);");
+        $conn->query("INSERT INTO locataire (nom_loc, prenom_loc, r_i_b, datenaiss, tel_loc, email_loc, mdp_loc, tel_banque, numappart) 
+                        VALUES ('$nom_loc', '$prenom_loc', $rib, '$datenaiss', '$tel_loc', '$email_loc', '$mdp_loc', '$tel_banque', $numappart);");
 
-        echo json_encode(['message' => 'Inscription réussie']);
+        echo json_encode(['message' => 'Inscription réussie, vous pouvez à présent vous connecter en tant que locataire.']);
 
     //----------------  MODIFIER  ----------------------\\
     } elseif ($data['action'] === 'modifier') {

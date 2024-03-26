@@ -1,5 +1,6 @@
 export class Locataire {
     public numeroloc: number;
+    public email_loc: string;
     public mdp_loc: string;
     public nom_loc: string;
     public prenom_loc: string;
@@ -14,6 +15,7 @@ export class Locataire {
 
     constructor(
         numeroloc: number = 0,
+        email_loc: string = '',
         mdp_loc: string = '',
         nom_loc: string = '',
         prenom_loc: string = '',
@@ -27,6 +29,7 @@ export class Locataire {
         action: string = ''
     ) {
         this.numeroloc = numeroloc;
+        this.email_loc = email_loc;
         this.mdp_loc = mdp_loc;
         this.nom_loc = nom_loc;
         this.prenom_loc = prenom_loc;

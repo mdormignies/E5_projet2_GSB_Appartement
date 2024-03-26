@@ -1,33 +1,19 @@
 <div class="container">
     <div class="row">
-        <form class="col s12" (ngSubmit)="ajouterLocataire()">
+        <form class="col s12" (ngSubmit)="nouvelleDemande()">
             <div class="row">
-                <div class="input-field col s6">
-                    <input id="mdp_loc" type="hidden" value="{{ ceClient.mdp_cli }}" required>
-                    <input id="nom_loc" type="hidden" value="{{ ceClient.nom_cli }}" required>
-                    <input id="prenom_loc" type="hidden" value="{{ ceClient.prenom_cli }}" required>
-                    <input id="tel_loc" type="hidden" value="{{ ceClient.tel_cli }}" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="datenaiss" type="date" class="validate" [(ngModel)]="ceClient.datenaiss" required>
-                    <label for="datenaiss" class="active">Date de naissance</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="rib" type="number" class="validate" [(ngModel)]="ceClient.rib" required>
-                    <label for="rib" class="active">RIB</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="tel_banque" type="tel" class="validate" [(ngModel)]="ceClient.tel_banque" required>
-                    <label for="tel_banque" class="active">Téléphone de la banque</label>
-                </div>
+                <h5>
+                    <strong>Informations</strong><br>
+                    Une demande sera envoyé au propriétaire qui devra accepté ou refusé votre demande. 
+                    Si celle-ci est refusée, vous serez notifié de cette décision. 
+                    Néanmoins, si cette demande est acceptée, vous devrez indiquer votre date de naissance, votre RIB et le numéro de téléphone de votre banque.
+                    Sans ces informations, vous ne pourrez pas devenir locataire de cet appartement.<br><br>
+                    <strong>Êtes-vous sûr de vouloir louer cet appartement ? Vous ne pourrez pas la modifier par la suite.</strong>
+                </h5>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Valider</button>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Je veux louer</button>
                 </div>
             </div>
         </form>
