@@ -5,8 +5,8 @@
         <form class="col s12" (submit)="login()">
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="numeroprop_connexion" type="number" [(ngModel)]="loginProprio.numeroprop" required>
-                    <label for="numeroprop_connexion" class="active">Numéro propriétaire</label>
+                    <input id="email_prop_connexion" type="text" [(ngModel)]="loginProprio.email_prop" required>
+                    <label for="email_prop_connexion" class="active">Email propriétaire</label>
                 </div>
             </div>
             <div class="row">
@@ -49,6 +49,12 @@
                 <div class="input-field col s6">
                     <input id="tel_prop" type="text" [(ngModel)]="newProprio.tel_prop" required>
                     <label for="tel_prop" class="active">Numéro de téléphone</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email_prop_inscription" type="text" [(ngModel)]="newProprio.email_prop" required>
+                    <label for="email_prop_inscription" class="active">Email propriétaire</label>
                 </div>
             </div>
             <div class="row">

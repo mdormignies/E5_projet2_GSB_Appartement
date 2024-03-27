@@ -10,6 +10,7 @@ export class Client {
 
     public confirmMdp: string;
     public action: string;
+    public role: string;
 
     constructor(
         num_cli: number = 0,
@@ -22,7 +23,8 @@ export class Client {
         tel_cli: string = '',
 
         confirmMdp: string = '',
-        action: string = ''
+        action: string = '',
+        role: string = 'client'
     ) {
         this.num_cli = num_cli;
         this.email_cli = email_cli;
@@ -35,5 +37,6 @@ export class Client {
 
         this.confirmMdp = confirmMdp;
         this.action = action;
+        this.role = role;
     }
 }

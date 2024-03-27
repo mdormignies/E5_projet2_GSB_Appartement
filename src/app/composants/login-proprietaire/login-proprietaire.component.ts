@@ -30,18 +30,45 @@ export class LoginProprietaireComponent {
     this.loginProprio.action = 'login';
 
     // Vérification des conditions avant la connexion
-    if (this.loginProprio.numeroprop == null || this.loginProprio.mdp_prop.trim() === '') {
+    if (this.loginProprio.email_prop.trim() === '' || this.loginProprio.mdp_prop.trim() === '') {
       alert('Veuillez remplir correctement tous les champs.');
       return;  // Arrêter le processus de connexion si les conditions ne sont pas remplies
+    }
+
+    // Vérification de l'email valide
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(this.loginProprio.email_prop)) {
+      alert('Veuillez saisir une adresse email valide.');
+      return;
+    }
+
+    // Vérification du mot de passe de plus de 8 caractères
+    if (this.loginProprio.mdp_prop.trim().length < 8) {
+      alert('Le mot de passe doit contenir au moins 8 caractères.');
+      return;
     }
   
     // Appel du service pour vérifier la connexion
     this.ProprietaireService.loginProprio(this.loginProprio).subscribe(
       (response: any) => {
         console.log(response.message);
-        this.authService.login(this.loginProprio.numeroprop);  // Activer l'authentification et accéder au site
-        this.proprietaireSessionService.setNumPropSubject(this.loginProprio.numeroprop);
-        this.router.navigate(['/home']);
+        // Après une connexion réussie, obtenir le numéro
+        this.ProprietaireService.getIdByEmail(this.loginProprio.email_prop).subscribe(
+          (ids: any[]) => {
+            if (ids.length > 0 && ids[0].numeroprop) {
+              const id = ids[0].numeroprop;
+              console.log('ID du propriétaire :', id);
+                this.authService.login(id);  // Activer l'authentification et accéder au site
+                this.proprietaireSessionService.setNumPropSubject(id);
+                this.router.navigate(['/home']);
+            } else {
+              console.error('Aucun ID de propriétaire trouvé');
+            }
+          },
+          (error: any) => {
+            console.error('Erreur lors de la récupération de l\'ID du propriétaire :', error);
+          }
+        );
       },
       (error: any) => {
         alert('La connexion a échoué. Veuillez vérifier vos informations.');
@@ -60,7 +87,6 @@ export class LoginProprietaireComponent {
       this.newProprio.prenom_prop.trim() === '' ||
       this.newProprio.adresse_prop.trim() === '' ||
       this.newProprio.codeville_prop.length !== 5 ||  // Vérification de la longueur du code postal
-      !this.newProprio.codeville_prop.startsWith('75') ||  // Vérification du préfixe du code postal
       this.newProprio.tel_prop.length !== 10 ||  // Vérification de la longueur du numéro de téléphone
       !this.newProprio.tel_prop.startsWith('0') ||  // Vérification du préfixe du numéro de téléphone
       this.newProprio.mdp_prop.trim() === '' ||
@@ -71,11 +97,24 @@ export class LoginProprietaireComponent {
       return;  // Arrêter le processus d'inscription si les conditions ne sont pas remplies
     }
 
+    // Vérification de l'email valide
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(this.newProprio.email_prop)) {
+      alert('Veuillez saisir une adresse email valide.');
+      return;
+    }
+
+    // Vérification du mot de passe de plus de 8 caractères
+    if (this.newProprio.mdp_prop.trim().length < 8) {
+      alert('Le mot de passe doit contenir au moins 8 caractères.');
+      return;
+    }
+
     // Appel du service pour vérifier l'inscription
     this.ProprietaireService.registerProprio(this.newProprio).subscribe(
       (response: any) => {
+        alert(response.message)
         console.log(response.message);
-        this.router.navigate(['/home']);
       },
       (error: any) => {
         alert('L\'incription a échoué');

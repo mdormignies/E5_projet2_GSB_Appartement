@@ -5,8 +5,8 @@
         <form class="col s12" (submit)="login()">
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="num_cli_connexion" type="number" [(ngModel)]="loginClient.num_cli" required>
-                    <label for="num_cli_connexion" class="active">Numéro client</label>
+                    <input id="email_cli_connexion" type="text" [(ngModel)]="loginClient.email_cli" required>
+                    <label for="email_cli_connexion" class="active">Email Client</label>
                 </div>
             </div>
             <div class="row">
@@ -49,6 +49,12 @@
                 <div class="input-field col s6">
                     <input id="tel_cli" type="text" [(ngModel)]="newClient.tel_cli" required>
                     <label for="tel_cli" class="active">Numéro de téléphone</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email_cli_inscription" type="text" [(ngModel)]="newClient.email_cli" required>
+                    <label for="email_cli_inscription" class="active">Email</label>
                 </div>
             </div>
             <div class="row">

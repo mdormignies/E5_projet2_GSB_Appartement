@@ -1,5 +1,6 @@
 export class Proprietaire {
     public numeroprop: number;
+    public email_prop: string;
     public mdp_prop: string;
     public nom_prop: string;
     public prenom_prop: string;
@@ -12,6 +13,7 @@ export class Proprietaire {
 
     constructor(
         numeroprop: number = 0,
+        email_prop: string = '',
         mdp_prop: string = '',
         nom_prop: string = '',
         prenom_prop: string = '',
@@ -23,6 +25,7 @@ export class Proprietaire {
         action: string = ''
     ) {
         this.numeroprop = numeroprop;
+        this.email_prop = email_prop;
         this.mdp_prop = mdp_prop;
         this.nom_prop = nom_prop;
         this.prenom_prop = prenom_prop;

@@ -51,9 +51,23 @@ export class LoginLocataireComponent {
     this.locataireService.loginLocataire(this.loginLocataire).subscribe(
       (response: any) => {
         console.log(response.message);
-        //this.authService.login(this.loginLocataire.numeroloc);  // Activer l'authentification et accéder au site
-        //this.locataireSessionService.setNumLocSubject(this.loginLocataire.numeroloc);
-        //this.router.navigate(['/profil']);
+        // Après une connexion réussie, obtenir le numéro de locataire
+        this.locataireService.getIdByEmail(this.loginLocataire.email_loc).subscribe(
+          (ids: any[]) => {
+            if (ids.length > 0 && ids[0].numeroloc) {
+              const id = ids[0].numeroloc;
+              console.log('ID du locataire :', id);
+                this.authService.login(id);  // Activer l'authentification et accéder au site
+                this.locataireSessionService.setNumLocSubject(id);
+                this.router.navigate(['/profil']);
+            } else {
+              console.error('Aucun ID de locataire trouvé');
+            }
+          },
+          (error: any) => {
+            console.error('Erreur lors de la récupération de l\'ID du locataire :', error);
+          }
+        );
       },
       (error: any) => {
         alert('La connexion a échoué. Veuillez vérifier vos informations.');

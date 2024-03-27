@@ -134,6 +134,7 @@ export class ProfilComponent implements OnInit {
       // Appel du service pour vérifier la modification
       this.clientService.modifierClient(this.client).subscribe(
         (response: any) => {
+          alert(response.message);
           console.log(response.message);
           this.router.navigate(['/home']);
         },
@@ -164,6 +165,7 @@ export class ProfilComponent implements OnInit {
       // Appel du service pour vérifier la modification
       this.proprietaireService.modifierProprio(this.ceProprietaire).subscribe(
         (response: any) => {
+          alert(response.message);
           console.log(response.message);
           this.router.navigate(['/home']);
         },
@@ -192,8 +194,9 @@ export class ProfilComponent implements OnInit {
       // Appel du service pour vérifier la modification
       this.locataireService.modifierLocataire(this.ceLocataire).subscribe(
         (response: any) => {
+          alert(response.message);
           console.log(response.message);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/profil']);
         },
         (error: any) => {
           alert('Un problème est survenue lors de la modification de la visite');

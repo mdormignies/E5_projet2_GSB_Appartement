@@ -1,0 +1,52 @@
+<div class="container">
+    <!-- Card 1: Statistiques -->
+    <div class="card">
+        <div class="card-header">
+            Statistiques
+        </div>
+        <div class="card-body">
+            <p>Nombre de clients : {{ nbClients }}</p>
+            <p>Nombre de locataires : {{ nbLocataires }}</p>
+            <p>Nombre de propriétaires : {{ nbProprietaires }}</p>
+            <p>Nombre d'appartements : {{ nbAppartements }}</p>
+        </div>
+    </div>
+
+    <!-- Card 2: Liste des propriétaires -->
+    <div class="card">
+        <div class="card-header">
+            Liste des propriétaires
+        </div>
+        <div class="card-body">
+            <ul>
+                <li *ngFor="let proprietaire of proprietaires">
+                    {{ proprietaire.nom }} {{ proprietaire.prenom }} ({{ proprietaire.nbAppartements }} appartements)
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Card 3: Liste des clients -->
+    <div class="card">
+        <div class="card-header">
+            Liste des clients
+        </div>
+        <div class="card-body">
+            <ul>
+                <li *ngFor="let client of clients">
+                    {{ client.nom_cli }} {{ client.prenom_cli }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Card 4: Revenu -->
+    <div class="card">
+        <div class="card-header">
+            Revenu
+        </div>
+        <div class="card-body">
+            <p>Revenu total : {{ revenu.charg_a_gsb }} €</p>
+        </div>
+    </div>
+</div>

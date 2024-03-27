@@ -97,6 +97,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         header('Content-Type: application/json');
         echo json_encode($data);
     }
+
+    if (isset($_GET['email'])) {
+            $email = $_GET['email'];
+            $result = $conn->query("SELECT numeroloc FROM locataire WHERE email_loc = '$email' ;");
+
+        $data = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
 }
 
 ?>

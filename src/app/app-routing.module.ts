@@ -10,6 +10,7 @@ import { AppartementComponent } from './composants/appartement/appartement/appar
 import { VisiteComponent } from './composants/visite/visite/visite.component';
 import { ProfilComponent } from './composants/profil/profil.component';
 import { DemandeComponent } from './composants/demande/demande.component';
+import { AdminComponent } from './composants/admin/admin.component';
 
 import { ClientLiaisonAuthService } from './services/s_liaison-auth/client-liaision-auth.service';
 import { LocataireLiaisonAuthService } from './services/s_liaison-auth/locataire-liaison-auth.service';
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'visite', canActivate: [AuthGuard], component: VisiteComponent },
   { path: 'profil', canActivate: [AuthGuard], component: ProfilComponent },
   { path: 'demande', canActivate: [AuthGuard], component: DemandeComponent },
+  { path: 'admin', component: AdminComponent },
   { path: 'people', component: PersonComponent },
   // Ajoutez d'autres routes si nécessaire
 ];

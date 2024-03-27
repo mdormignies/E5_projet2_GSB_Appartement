@@ -30,18 +30,45 @@ export class LoginClientComponent implements OnInit {
     this.loginClient.action = 'login';
 
     // Vérification des conditions avant la connexion
-    if (this.loginClient.num_cli == null || this.loginClient.mdp_cli.trim() === '') {
+    if (this.loginClient.email_cli.trim() === '' || this.loginClient.mdp_cli.trim() === '') {
       alert('Veuillez remplir correctement tous les champs.');
       return;  // Arrêter le processus de connexion si les conditions ne sont pas remplies
+    }
+
+    // Vérification de l'email valide
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(this.loginClient.email_cli)) {
+      alert('Veuillez saisir une adresse email valide.');
+      return;
+    }
+
+    // Vérification du mot de passe de plus de 8 caractères
+    if (this.loginClient.mdp_cli.trim().length < 8) {
+      alert('Le mot de passe doit contenir au moins 8 caractères.');
+      return;
     }
   
     // Appel du service pour vérifier la connexion
     this.clientService.loginClient(this.loginClient).subscribe(
       (response: any) => {
         console.log(response.message);
-        this.authService.login(this.loginClient.num_cli);  // Activer l'authentification et accéder au site
-        this.clientSessionService.setNumCliSubject(this.loginClient.num_cli);
-        this.router.navigate(['/home']);
+        // Après une connexion réussie, obtenir le numéro
+        this.clientService.getIdByEmail(this.loginClient.email_cli).subscribe(
+          (ids: any[]) => {
+            if (ids.length > 0 && ids[0].num_cli) {
+              const id = ids[0].num_cli;
+              console.log('ID du client :', id);
+                this.authService.login(id);  // Activer l'authentification et accéder au site
+                this.clientSessionService.setNumCliSubject(id);
+                this.router.navigate(['/home']);
+            } else {
+              console.error('Aucun ID de client trouvé');
+            }
+          },
+          (error: any) => {
+            console.error('Erreur lors de la récupération de l\'ID du client :', error);
+          }
+        );
       },
       (error: any) => {
         alert('La connexion a échoué. Veuillez vérifier vos informations.');
@@ -71,11 +98,24 @@ export class LoginClientComponent implements OnInit {
       return;  // Arrêter le processus d'inscription si les conditions ne sont pas remplies
     }
 
+    // Vérification de l'email valide
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(this.newClient.email_cli)) {
+      alert('Veuillez saisir une adresse email valide.');
+      return;
+    }
+
+    // Vérification du mot de passe de plus de 8 caractères
+    if (this.newClient.mdp_cli.trim().length < 8) {
+      alert('Le mot de passe doit contenir au moins 8 caractères.');
+      return;
+    }
+
     // Appel du service pour vérifier l'inscription
     this.clientService.registerClient(this.newClient).subscribe(
       (response: any) => {
+        alert(response.message)
         console.log(response.message);
-        this.router.navigate(['/home']);
       },
       (error: any) => {
         alert('L\'incription a échoué');

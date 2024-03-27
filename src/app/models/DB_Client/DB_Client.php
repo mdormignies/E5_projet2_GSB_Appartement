@@ -1,6 +1,6 @@
 <?php
 
-// Autoriser l'accès depuis n'importe quelle origine
+// Autoriser l'accès depuis le site localhost
 header("Access-Control-Allow-Origin: *");
 // Autoriser les méthodes HTTP spécifiées
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
@@ -20,10 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //----------------  LOGIN  ----------------------\\
     if ($data['action'] === 'login') {
 
-        $num_cli = $conn->real_escape_string($data['num_cli']);
+        $email_cli = $conn->real_escape_string($data['email_cli']);
         $mdp_cli = $conn->real_escape_string($data['mdp_cli']);
 
-        $result = $conn->query("SELECT * FROM client WHERE num_cli = $num_cli AND mdp_cli = '$mdp_cli';");
+        $result = $conn->query("SELECT * FROM client WHERE email_cli = '$email_cli' AND mdp_cli = '$mdp_cli';");
 
         if ($result->num_rows > 0) {
             echo json_encode(['message' => 'Authentification réussie']);
@@ -40,10 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $adresse_cli = $conn->real_escape_string($data['adresse_cli']);
         $codeville_cli = $conn->real_escape_string($data['codeville_cli']);
         $tel_cli = $conn->real_escape_string($data['tel_cli']);
+        $email_cli = $conn->real_escape_string($data['email_cli']);
         $mdp_cli = $conn->real_escape_string($data['mdp_cli']);
 
-        $conn->query("INSERT INTO client (nom_cli, prenom_cli, adresse_cli, codeville_cli, tel_cli, mdp_cli) 
-                        VALUES ('$nom_cli', '$prenom_cli', '$adresse_cli', '$codeville_cli', '$tel_cli', '$mdp_cli');");
+        $conn->query("INSERT INTO client (nom_cli, prenom_cli, adresse_cli, codeville_cli, tel_cli, email_cli, mdp_cli) 
+                        VALUES ('$nom_cli', '$prenom_cli', '$adresse_cli', '$codeville_cli', '$tel_cli', '$email_cli', '$mdp_cli');");
 
         echo json_encode(['message' => 'Inscription réussie']);
 
@@ -83,6 +84,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $result = $conn->query("SELECT * FROM client WHERE num_cli = $id ;");
+
+        $data = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    if (isset($_GET['email'])) {
+            $email = $_GET['email'];
+            $result = $conn->query("SELECT num_cli FROM client WHERE email_cli = '$email' ;");
 
         $data = array();
 

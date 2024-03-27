@@ -20,10 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //----------------  LOGIN  ----------------------\\
     if ($data['action'] === 'login') {
 
-        $numeroprop = $conn->real_escape_string($data['numeroprop']);
+        $email_prop = $conn->real_escape_string($data['email_prop']);
         $mdp_prop = $conn->real_escape_string($data['mdp_prop']);
 
-        $result = $conn->query("SELECT * FROM proprietaire WHERE numeroprop = $numeroprop AND mdp_prop = '$mdp_prop';");
+        $result = $conn->query("SELECT * FROM proprietaire WHERE email_prop = '$email_prop' AND mdp_prop = '$mdp_prop';");
 
         if ($result->num_rows > 0) {
             echo json_encode(['message' => 'Authentification réussie']);
@@ -40,10 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $adresse_prop = $conn->real_escape_string($data['adresse_prop']);
         $codeville_prop = $conn->real_escape_string($data['codeville_prop']);
         $tel_prop = $conn->real_escape_string($data['tel_prop']);
+        $email_prop = $conn->real_escape_string($data['email_prop']);
         $mdp_prop = $conn->real_escape_string($data['mdp_prop']);
 
-        $conn->query("INSERT INTO proprietaire (nom, prenom, adresse, code_ville, tel, mdp_prop) 
-                        VALUES ('$nom_prop', '$prenom_prop', '$adresse_prop', '$codeville_prop', '$tel_prop', '$mdp_prop');");
+        $conn->query("INSERT INTO proprietaire (nom, prenom, adresse, code_ville, tel, email_prop, mdp_prop) 
+                        VALUES ('$nom_prop', '$prenom_prop', '$adresse_prop', '$codeville_prop', '$tel_prop', '$email_prop', '$mdp_prop');");
 
         echo json_encode(['message' => 'Inscription réussie']);
 
@@ -83,11 +84,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $result = $conn->query("SELECT proprietaire.numeroprop, nom, prenom, adresse, code_ville, tel,
-                                    (SUM(prix_loc) + SUM(prix_charg)) * 0.93 AS revenu, (SUM(prix_loc) + SUM(prix_charg)) * 0.07 AS charg_a_gsb
+                                        SUM(prix_loc + prix_charg) * 0.93 AS revenu,
+                                        SUM(prix_loc + prix_charg) * 0.07 AS charg_a_gsb
                                     FROM proprietaire 
                                     JOIN appartement ON proprietaire.numeroprop = appartement.numeroprop
-                                    JOIN locataire ON appartement.numappart = locataire.numappart
                                     WHERE proprietaire.numeroprop = $id AND appartement.numeroprop = $id ;"); // calcule le revenu en fonction de s'il y a un locataire dans l'appartement ou non
+
+        $data = array();
+
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    if (isset($_GET['email'])) {
+            $email = $_GET['email'];
+            $result = $conn->query("SELECT numeroprop FROM proprietaire WHERE email_prop = '$email' ;");
 
         $data = array();
 

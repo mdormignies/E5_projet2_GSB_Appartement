@@ -21,6 +21,10 @@ export class LocataireService {
     return this.http.get<any>(`${this.apiUrl}?id=${TheId}`);
   }
 
+  getIdByEmail(email: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?email=${email}`);
+  }
+
   ajouterLocataire(locataire: Locataire): Observable<any> {
     return this.http.post(this.apiUrl, locataire);
   }

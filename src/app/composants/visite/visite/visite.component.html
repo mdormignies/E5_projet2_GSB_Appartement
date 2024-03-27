@@ -1,8 +1,7 @@
 <div class="container">
     <div class="row">
-        <h4 class="center-align">Vous avez rendez-vous le :</h4>
-        <!-- Liste des visites -->
-        <div class="col s12">
+        <h4 class="center-align" *ngIf="lesVisites && lesVisites.length > 0">Vous avez rendez-vous le :</h4>
+        <div class="col s12" *ngIf="lesVisites && lesVisites.length > 0">
             <div class="card horizontal" *ngFor="let uneVisite of lesVisites">
                 <div class="card-stacked">
                     <div class="card-content">
@@ -34,6 +33,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col s12" *ngIf="lesVisites && lesVisites.length === 0">
+            <h4>
+                Vous n'avez demander aucune visite.
+            </h4>
         </div>
     </div>
 </div>

@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `appartement` (
   PRIMARY KEY (`numappart`),
   KEY `numeroprop` (`numeroprop`),
   CONSTRAINT `appartement_ibfk_1` FOREIGN KEY (`numeroprop`) REFERENCES `proprietaire` (`numeroprop`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table test-angular.appartement : ~10 rows (environ)
 DELETE FROM `appartement`;
@@ -51,7 +51,8 @@ INSERT INTO `appartement` (`numappart`, `rue`, `arrondisse`, `etage`, `typappart
 	(19, 'Avenue Foch', 16, 1, 'T5', 3000.00, 250.00, 0, 1, '2024-03-10', 3),
 	(21, 'Rue Saint-Antoine', 4, 3, 'Studio', 1350.00, 100.00, 1, 1, '2024-03-28', 6),
 	(29, '68 Rue de la rue qui est à côté', 2, 5, 'T4', 9600.00, 400.00, 1, 1, '2024-06-30', 7),
-	(30, '69 rue de Maxime', 5, 0, 'T4', 5222.00, -555.00, 1, 1, '2024-03-29', 7);
+	(30, '69 rue de Maxime', 5, 0, 'T4', 5222.00, -555.00, 1, 1, '2024-03-29', 7),
+	(35, '84 Rue de turbigo', 3, 5, 'Studio', 8520.00, 200.00, 1, 1, '2024-03-31', 13);
 
 -- Listage de la structure de table test-angular. client
 DROP TABLE IF EXISTS `client`;
@@ -64,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `adresse_cli` varchar(50) NOT NULL,
   `codeville_cli` varchar(30) NOT NULL,
   `tel_cli` varchar(20) NOT NULL,
+  `role` enum('client','admin') NOT NULL DEFAULT 'client',
   PRIMARY KEY (`num_cli`),
   UNIQUE KEY `email_cli` (`email_cli`),
   UNIQUE KEY `tel_cli` (`tel_cli`)
@@ -71,11 +73,11 @@ CREATE TABLE IF NOT EXISTS `client` (
 
 -- Listage des données de la table test-angular.client : ~4 rows (environ)
 DELETE FROM `client`;
-INSERT INTO `client` (`num_cli`, `email_cli`, `mdp_cli`, `nom_cli`, `prenom_cli`, `adresse_cli`, `codeville_cli`, `tel_cli`) VALUES
-	(1, 'test@test.test', 'a', 'test', 'test', '1 avenue des tests', '75001', '0601020304'),
-	(2, 'nom.prenom@gmail.test', 'password', 'Nom', 'Prenom', '5 Rue du quoi', '75009', '0123456789'),
-	(9, 'dmaxime@gmail.com', 'a', 'Maxime', 'D', '80 Avenue de l\'amusement', '75006', '0626548452'),
-	(10, 'vasile.bors@yahoo.info', 'vasile', 'bors', 'vasile', 'Avenue trompignon', '75003', '0151236322');
+INSERT INTO `client` (`num_cli`, `email_cli`, `mdp_cli`, `nom_cli`, `prenom_cli`, `adresse_cli`, `codeville_cli`, `tel_cli`, `role`) VALUES
+	(1, 'test@test.test', 'test1234', 'test', 'test', '1 avenue des tests', '75001', '0601020304', 'client'),
+	(2, 'nom.prenom@gmail.test', 'password', 'Nom', 'Prenom', '5 Rue du quoi', '75009', '0123456789', 'client'),
+	(9, 'dmaxime@gmail.com', '12345678', 'Maxime', 'D', '80 Avenue de l\'amusement', '75006', '0626548452', 'client'),
+	(10, 'vasile.bors@yahoo.info', 'vasile20', 'bors', 'vasile', 'Avenue trompignon', '75003', '0151236322', 'client');
 
 -- Listage de la structure de table test-angular. demande
 DROP TABLE IF EXISTS `demande`;
@@ -92,12 +94,11 @@ CREATE TABLE IF NOT EXISTS `demande` (
   CONSTRAINT `demande_ibfk_1` FOREIGN KEY (`numappart`) REFERENCES `appartement` (`numappart`) ON DELETE CASCADE,
   CONSTRAINT `demande_ibfk_2` FOREIGN KEY (`num_cli`) REFERENCES `client` (`num_cli`) ON DELETE CASCADE,
   CONSTRAINT `demande_ibfk_3` FOREIGN KEY (`numeroprop`) REFERENCES `proprietaire` (`numeroprop`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table test-angular.demande : ~0 rows (environ)
 DELETE FROM `demande`;
 INSERT INTO `demande` (`num_dem`, `statut_dem`, `numappart`, `num_cli`, `numeroprop`) VALUES
-	(1, 'Accepté', 30, 9, 7),
 	(2, 'En cours', 12, 9, 6);
 
 -- Listage de la structure de table test-angular. locataire
@@ -118,13 +119,14 @@ CREATE TABLE IF NOT EXISTS `locataire` (
   UNIQUE KEY `tel_loc` (`tel_loc`),
   UNIQUE KEY `numappart` (`numappart`),
   CONSTRAINT `locataire_ibfk_1` FOREIGN KEY (`numappart`) REFERENCES `appartement` (`numappart`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table test-angular.locataire : ~2 rows (environ)
 DELETE FROM `locataire`;
 INSERT INTO `locataire` (`numeroloc`, `email_loc`, `mdp_loc`, `nom_loc`, `prenom_loc`, `datenaiss`, `tel_loc`, `r_i_b`, `tel_banque`, `numappart`) VALUES
-	(1, 'auguste@turgot.fr', 'auguste', 'Luyedisa', 'Auguste', '2004-09-04', '0123456789', 123456789, '0987654321', 1),
-	(2, 'test@test.test', 'a', 'test', 'test', '1999-01-20', '0601020304', 784652256, '0121232625', 18);
+	(1, 'auguste@turgot.fr', 'augusteL', 'Luyedisa', 'Auguste', '2004-09-04', '0123456789', 123456789, '0987654321', 1),
+	(2, 'test@test.test', 'test1234', 'test', 'test', '1999-01-20', '0601020304', 784652256, '0121232625', 18),
+	(15, 'dmaxime@gmail.com', '12345678', 'Maxime', 'D', '2009-03-05', '0626548452', 333444666, '0164845225', 30);
 
 -- Listage de la structure de table test-angular. proprietaire
 DROP TABLE IF EXISTS `proprietaire`;
@@ -140,16 +142,17 @@ CREATE TABLE IF NOT EXISTS `proprietaire` (
   PRIMARY KEY (`numeroprop`),
   UNIQUE KEY `email_prop` (`email_prop`),
   UNIQUE KEY `tel` (`tel`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Listage des données de la table test-angular.proprietaire : ~5 rows (environ)
 DELETE FROM `proprietaire`;
 INSERT INTO `proprietaire` (`numeroprop`, `email_prop`, `mdp_prop`, `nom`, `prenom`, `adresse`, `code_ville`, `tel`) VALUES
-	(3, 'jean.dupont@yahoo.com', 'mdp1', 'Jean', 'Dupont', '5 rue de la Paix', '75002', '0654321098'),
-	(6, 'leclerc.sophie@turgot.fr', 'mdp4', 'Sophie', 'Leclerc', '20 boulevard Haussmann', '75009', '0145678901'),
-	(7, 'p.lefebvre@gmail.com', 'mdp5', 'Paul', 'Lefebvre', '25 rue de la République', '75004', '0678902345'),
-	(8, 'i.girard@gmail.com', 'mdp6', 'Isabelle', 'Girard', '30 avenue Montaigne', '75008', '0156789012'),
-	(9, 'bonnet.jacques@turgot.fr', 'mdp7', 'Jacques', 'Bonnet', '35 rue du Faubourg Saint-Honoré', '75008', '0643210987');
+	(3, 'jean.dupont@yahoo.com', 'mdp1jean', 'Jean', 'Dupont', '5 rue de la Paix', '75002', '0654321098'),
+	(6, 'leclerc.sophie@turgot.fr', 'mdp4sophie', 'Sophie', 'Leclerc', '20 boulevard Haussmann', '75009', '0145678901'),
+	(7, 'p.lefebvre@gmail.com', 'mdp5paul', 'Paul', 'Lefebvre', '25 rue de la République', '75004', '0678902345'),
+	(8, 'i.girard@gmail.com', 'mdp6isabelle', 'Isabelle', 'Girard', '30 avenue Montaigne', '75008', '0156789012'),
+	(9, 'bonnet.jacques@turgot.fr', 'mdp7jacques', 'Jacques', 'Bonnet', '35 rue du Faubourg Saint-Honoré', '75008', '0643210987'),
+	(13, 'vhugo@gmail.com', '12345678', 'Hugo', 'Victor', '14 Rue des près', '89270', '0787988558');
 
 -- Listage de la structure de table test-angular. visiter
 DROP TABLE IF EXISTS `visiter`;
@@ -167,6 +170,16 @@ CREATE TABLE IF NOT EXISTS `visiter` (
 DELETE FROM `visiter`;
 INSERT INTO `visiter` (`numappart`, `num_cli`, `date_visite`) VALUES
 	(30, 1, '2024-03-30');
+
+-- Listage de la structure de déclencheur test-angular. after_locataire_insert
+DROP TRIGGER IF EXISTS `after_locataire_insert`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `after_locataire_insert` AFTER INSERT ON `locataire` FOR EACH ROW BEGIN
+    DELETE FROM demande WHERE numappart = NEW.numappart;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

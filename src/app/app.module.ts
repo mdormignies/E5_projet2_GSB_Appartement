@@ -14,6 +14,7 @@ import { AjoutVisiteComponent } from './composants/ajout-visite/ajout-visite/ajo
 import { AjoutDemandeComponent } from './composants/ajout-demande/ajout-demande.component';
 import { ProfilComponent } from './composants/profil/profil.component';
 import { DemandeComponent } from './composants/demande/demande.component';
+import { AdminComponent } from './composants/admin/admin.component';
 import { PersonComponent } from './composants/person/person.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -40,7 +41,8 @@ import { AuthGuard } from './services/auth-guard.service';
     AjoutVisiteComponent,
     AjoutDemandeComponent,
     ProfilComponent,
-    DemandeComponent
+    DemandeComponent,
+    AdminComponent
     // Ajoutez d'autres composants si nécessaire
   ],
   imports: [
