@@ -87,7 +87,6 @@ export class LoginClientComponent implements OnInit {
       this.newClient.prenom_cli.trim() === '' ||
       this.newClient.adresse_cli.trim() === '' ||
       this.newClient.codeville_cli.length !== 5 ||  // Vérification de la longueur du code postal
-      !this.newClient.codeville_cli.startsWith('75') ||  // Vérification du préfixe du code postal
       this.newClient.tel_cli.length !== 10 ||  // Vérification de la longueur du numéro de téléphone
       !this.newClient.tel_cli.startsWith('0') ||  // Vérification du préfixe du numéro de téléphone
       this.newClient.mdp_cli.trim() === '' ||

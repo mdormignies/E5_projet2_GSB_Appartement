@@ -25,6 +25,11 @@ export class AdminComponent implements OnInit {
       this.nbLocataires = data.nbLocataires;
       this.nbProprietaires = data.nbProprietaires;
       this.nbAppartements = data.nbAppartements;
+
+      console.log(data.nbClients);
+      console.log(this.nbLocataires);
+      console.log(this.nbProprietaires);
+      console.log(this.nbAppartements);
     });
 
     this.adminService.getProprietaires().subscribe(
