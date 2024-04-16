@@ -52,10 +52,15 @@ export class HomeComponent implements OnInit {
   loadAppartement(): void {
     this.appartementService.getAppartement().subscribe((LesAppartements: Appartement[]) => {
       this.appartementList = LesAppartements;
+
       // Créer la liste des arrondissements disponibles
       this.arrondissements = Array.from(new Set(this.appartementList.map(app => app.arrondisse)));
+      this.arrondissements.sort((a, b) => a - b); // Trier les arrondissements par ordre croissant
+
       // Créer la liste des types d'appartements disponibles
       this.typesAppartement = Array.from(new Set(this.appartementList.map(app => app.typappart)));
+      this.typesAppartement.sort();
+      
       this.filteredAppartementList = this.appartementList;
     });
   }
