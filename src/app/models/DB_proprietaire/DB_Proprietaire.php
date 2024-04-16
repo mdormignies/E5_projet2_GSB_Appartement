@@ -83,14 +83,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['id'])) {
             $id = $_GET['id'];
-            $result = $conn->query("SELECT locataire.numeroloc, proprietaire.numeroprop, nom, prenom, adresse, code_ville, tel,
-            SUM(prix_loc + prix_charg) * 0.93 AS revenu,
-            SUM(prix_loc + prix_charg) * 0.07 AS charg_a_gsb
-            FROM proprietaire 
-            JOIN appartement ON proprietaire.numeroprop = appartement.numeroprop
-            LEFT JOIN locataire ON appartement.numappart = locataire.numappart
-            WHERE proprietaire.numeroprop = $id AND appartement.numeroprop = $id AND locataire.numeroloc IS NULL
-            GROUP BY locataire.numeroloc;"); // calcule le revenu en fonction de s'il y a un locataire dans l'appartement ou non
+            $result = $conn->query("SELECT numeroprop, nom, prenom, adresse, code_ville, tel, email_prop 
+                                    FROM proprietaire 
+                                    WHERE numeroprop = $id ;");
 
         $data = array();
 
@@ -101,6 +96,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         header('Content-Type: application/json');
         echo json_encode($data);
     }
+
+    if (isset($_GET['cotis'])) {
+        $id = $_GET['cotis'];
+        $result = $conn->query("SELECT
+                                    SUM(prix_loc + prix_charg) * 0.93 AS revenu,
+                                    SUM(prix_loc + prix_charg) * 0.07 AS charg_a_gsb
+                                FROM proprietaire 
+                                    JOIN appartement ON proprietaire.numeroprop = appartement.numeroprop
+                                    LEFT JOIN locataire ON appartement.numappart = locataire.numappart
+                                WHERE proprietaire.numeroprop = $id AND appartement.numeroprop = $id 
+                                    AND locataire.numeroloc IS NOT NULL;"); 
+                                // calcule le revenu en fonction de s'il y a un locataire dans l'appartement ou non
+
+    $data = array();
+
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($data);
+}
 
     if (isset($_GET['email'])) {
             $email = $_GET['email'];

@@ -120,7 +120,7 @@ export class HomeComponent implements OnInit {
     this.proprioAppartementService.modifierAppartement(this.unAppartement).subscribe(
       (response: any) => {
         console.log(response.message);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/profil']);
       },
       (error: any) => {
         alert('Un problème est survenue lors de la modification de la visite');
@@ -139,7 +139,7 @@ export class HomeComponent implements OnInit {
     this.proprioAppartementService.supprimerAppartement(this.unAppartement).subscribe(
       (response: any) => {
         console.log(response.message);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/profil']);
       },
       (error: any) => {
         alert('Un problème est survenue lors de la suppression de la visite : vous avez peut-être une visite de prévue pour cette appartement');

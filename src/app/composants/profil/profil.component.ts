@@ -31,6 +31,7 @@ export class ProfilComponent implements OnInit {
   client: Client = new Client();
   locataire: any;
   proprietaire: any;
+  cotisationsProp: any; // Revenus et charges à payer
   ceLocataire: Locataire = new Locataire();
   ceProprietaire: Proprietaire = new Proprietaire();
 
@@ -88,7 +89,21 @@ export class ProfilComponent implements OnInit {
           error => {
             console.error('Erreur lors du chargement du profil', error);
           }
-        );
+        ); // GET PROFIL
+
+        this.proprietaireService.getCotis(this.numProp).subscribe(
+          (cotis: any) => { // Utiliser any pour accepter tout type de données
+            if (cotis) {
+              this.cotisationsProp = cotis[0];
+              console.log(this.cotisationsProp);
+            } else {
+              console.error('Aucune cotisations trouvé');
+            }
+          },
+          error => {
+            console.error('Erreur lors du chargement du profil', error);
+          }
+        ); // GET COTISATIONS
       }
 
       this.numLoc = this.locataireSessionService.getNumLoc();

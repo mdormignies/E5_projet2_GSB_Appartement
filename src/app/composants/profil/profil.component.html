@@ -1,4 +1,7 @@
 <div class="container">
+
+    <!-- VUE CLIENT -->
+
     <div *ngIf="numCli !== null" class="row">
         <h4 class="center-align">Votre profil</h4>
         <!-- Liste des visites -->
@@ -21,8 +24,15 @@
                     </div>
                     <div *ngIf="afficheModif === true" class="card-action">
                         <form (submit)="modifierClient(client.adresse_cli, client.codeville_cli)">
-                            <input type="text" [(ngModel)]="client.adresse_cli" required>
-                            <input type="text" [(ngModel)]="client.codeville_cli" required>
+                            <div class="input-field">
+                                <label for="modifAdresse_cli" class="active">Votre adresse</label>
+                                <input id="modifAdresse_cli" type="text" [(ngModel)]="client.adresse_cli" required>
+                            </div>
+
+                            <div class="input-field">
+                                <label for="modifCP_cli" class="active">Votre code postal</label>
+                                <input id="modifCP_cli" type="text" [(ngModel)]="client.codeville_cli" required>
+                            </div>
                             <button type="submit" class="btn waves-effect waves-light">
                                 Valider
                             </button>
@@ -32,6 +42,8 @@
             </div>
         </div>
     </div>
+
+    <!-- VUE PROPRIETAIRE -->
 
     <div *ngIf="numProp !== null" class="row">
         <h4 class="center-align">Votre profil</h4>
@@ -44,8 +56,13 @@
                         <p>Nom : {{ proprietaire.nom }} {{ proprietaire.prenom }} </p>
                         <p>Adresse : {{ proprietaire.adresse }} {{ proprietaire.code_ville }}</p>
                         <p>Téléphone : {{ proprietaire.tel }}</p>
-                        <p><strong>Mes revenus mensuels : {{ proprietaire.revenu }} € NET</strong></p><br>
-                        <p><strong>GSB récupère : {{ proprietaire.charg_a_gsb }} €</strong></p>
+
+                        <!-- On regarde si le prop a des revenus ou non -->
+                        <p *ngIf="cotisationsProp.revenu !== null"><strong>Mes revenus mensuels : {{ cotisationsProp.revenu }} € NET</strong></p><br>
+                        <p *ngIf="cotisationsProp.revenu === null"><strong>Mes revenus mensuels : 0 € NET</strong></p><br>
+
+                        <p *ngIf="cotisationsProp.charg_a_gsb !== null"><strong>GSB récupère : {{ cotisationsProp.charg_a_gsb }} €</strong></p>
+                        <p *ngIf="cotisationsProp.charg_a_gsb === null"><strong>GSB récupère : 0 €</strong></p>
                     </div>
                     <div class="card-action">
                         <button class="btn waves-effect waves-light" (click)="toggleModif()">
@@ -57,8 +74,15 @@
                     </div>
                     <div *ngIf="afficheModif === true" class="card-action">
                         <form (submit)="modifierProprio(proprietaire.adresse, proprietaire.code_ville)">
-                            <input type="text" [(ngModel)]="proprietaire.adresse" required>
-                            <input type="text" [(ngModel)]="proprietaire.code_ville" required>
+                            <div class="input-field">
+                                <label for="modifAdresse_prop" class="active">Votre adresse</label>
+                                <input id="modifAdresse_prop" type="text" [(ngModel)]="proprietaire.adresse" required>
+                            </div>
+
+                            <div class="input-field">
+                                <label for="modifCP_prop" class="active">Votre code postal</label>
+                                <input id="modifCP_prop" type="text" [(ngModel)]="proprietaire.code_ville" required>
+                            </div>
                             <button type="submit" class="btn waves-effect waves-light">
                                 Valider
                             </button>
@@ -68,6 +92,8 @@
             </div>
         </div>
     </div>
+
+    <!-- VUE LOCATAIRE -->
 
     <div *ngIf="numLoc !== null" class="row">
         <h4 class="center-align">Votre profil</h4>

@@ -1,6 +1,6 @@
 <?php
 
-// Autoriser l'accès depuis le site localhost
+// Autoriser l'accès depuis n'importe quelle origine
 header("Access-Control-Allow-Origin: *");
 // Autoriser les méthodes HTTP spécifiées
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
@@ -8,7 +8,6 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 // Renvoyer le type de contenu JSON
 header("Content-Type: application/json");
-
 
 require_once('../db.php');
 

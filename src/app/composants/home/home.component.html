@@ -63,7 +63,8 @@
 
 <div *ngIf="numProp !== null" class="container">
     <div class="row">
-        <h4 class="center-align">Vos annonces</h4>
+        <h4 class="center-align" *ngIf="!proprioAppartementList || proprioAppartementList.length === 0">Vous n'avez déposer aucune annonce</h4>
+        <h4 class="center-align" *ngIf="proprioAppartementList && proprioAppartementList.length > 0">Vos annonces</h4>
         <!-- Liste des appartements -->
         <div *ngFor="let unAppartement of proprioAppartementList" class="col s12">
             <div class="card mb-3">

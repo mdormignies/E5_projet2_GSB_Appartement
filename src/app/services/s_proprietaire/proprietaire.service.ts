@@ -25,6 +25,10 @@ export class ProprietaireService {
     return this.http.get<any>(`${this.apiUrl}?id=${TheId}`);
   }
 
+  getCotis(TheId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?cotis=${TheId}`);
+  }
+
   getIdByEmail(email: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}?email=${email}`);
   }
