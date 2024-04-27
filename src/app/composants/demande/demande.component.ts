@@ -12,6 +12,8 @@ import { LocataireService } from "../../services/s_locataire/locataire.service";
 import { ClientSessionService } from '../../services/sessionsServices/client-session.service';
 import { ProprietaireSessionService } from "../../services/sessionsServices/proprietaire-session.service";
 
+import { ClientLiaisonAuthService } from "../../services/s_liaison-auth/client-liaision-auth.service";
+
 @Component({
   selector: 'app-demande',
   templateUrl: './demande.component.html',
@@ -38,6 +40,7 @@ export class DemandeComponent implements OnInit {
     private clientService: ClientService,
     private clientSessionService: ClientSessionService,
     private proprietaireSessionService: ProprietaireSessionService,
+    private clientauthService: ClientLiaisonAuthService
   ) {
     const today = new Date();
     const maxDate = new Date(today.getFullYear() - 15, today.getMonth(), today.getDate());
@@ -178,7 +181,8 @@ export class DemandeComponent implements OnInit {
       (response: any) => {
         alert(response.message);
         console.log(response.message);
-        this.router.navigate(['/home']);
+        this.clientauthService.logout();
+        this.router.navigate(['/init']);
       },
       (error: any) => {
         alert('L\'incription a échoué');
