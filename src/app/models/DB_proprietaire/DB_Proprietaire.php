@@ -23,10 +23,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email_prop = $conn->real_escape_string($data['email_prop']);
         $mdp_prop = $conn->real_escape_string($data['mdp_prop']);
 
-        $result = $conn->query("SELECT * FROM proprietaire WHERE email_prop = '$email_prop' AND mdp_prop = '$mdp_prop';");
+        $result = $conn->query("SELECT * FROM proprietaire WHERE email_prop = '$email_prop';");
 
         if ($result->num_rows > 0) {
-            echo json_encode(['message' => 'Authentification réussie']);
+            $row = $result->fetch_assoc();
+            $hashed_password = $row['mdp_prop'];
+            // Vérifier le mot de passe haché
+            if (password_verify($mdp_prop, $hashed_password)) {
+                echo json_encode(['message' => 'Authentification réussie']);
+            } else {
+                http_response_code(401);
+                echo json_encode(['message' => 'Échec de l\'authentification']);
+            }
         } else {
             http_response_code(401);
             echo json_encode(['message' => 'Échec de l\'authentification']);
@@ -43,8 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email_prop = $conn->real_escape_string($data['email_prop']);
         $mdp_prop = $conn->real_escape_string($data['mdp_prop']);
 
+            // Hacher le mot de passe
+        $hashed_password = password_hash($mdp_prop, PASSWORD_DEFAULT);
+
         $conn->query("INSERT INTO proprietaire (nom, prenom, adresse, code_ville, tel, email_prop, mdp_prop) 
-                        VALUES ('$nom_prop', '$prenom_prop', '$adresse_prop', '$codeville_prop', '$tel_prop', '$email_prop', '$mdp_prop');");
+                        VALUES ('$nom_prop', '$prenom_prop', '$adresse_prop', '$codeville_prop', '$tel_prop', '$email_prop', '$hashed_password');");
 
         echo json_encode(['message' => 'Inscription réussie']);
 

@@ -18,14 +18,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     //----------------  LOGIN  ----------------------\\
     if ($data['action'] === 'login') {
-
         $email_cli = $conn->real_escape_string($data['email_cli']);
         $mdp_cli = $conn->real_escape_string($data['mdp_cli']);
-
-        $result = $conn->query("SELECT * FROM client WHERE email_cli = '$email_cli' AND mdp_cli = '$mdp_cli';");
-
+    
+        $result = $conn->query("SELECT * FROM client WHERE email_cli = '$email_cli';");
+    
         if ($result->num_rows > 0) {
-            echo json_encode(['message' => 'Authentification réussie']);
+            $row = $result->fetch_assoc();
+            $hashed_password = $row['mdp_cli'];
+            // Vérifier le mot de passe haché
+            if (password_verify($mdp_cli, $hashed_password)) {
+                echo json_encode(['message' => 'Authentification réussie']);
+            } else {
+                http_response_code(401);
+                echo json_encode(['message' => 'Échec de l\'authentification']);
+            }
         } else {
             http_response_code(401);
             echo json_encode(['message' => 'Échec de l\'authentification']);
@@ -42,8 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email_cli = $conn->real_escape_string($data['email_cli']);
         $mdp_cli = $conn->real_escape_string($data['mdp_cli']);
 
+            // Hacher le mot de passe
+        $hashed_password = password_hash($mdp_cli, PASSWORD_DEFAULT);
+
         $conn->query("INSERT INTO client (nom_cli, prenom_cli, adresse_cli, codeville_cli, tel_cli, email_cli, mdp_cli) 
-                        VALUES ('$nom_cli', '$prenom_cli', '$adresse_cli', '$codeville_cli', '$tel_cli', '$email_cli', '$mdp_cli');");
+                        VALUES ('$nom_cli', '$prenom_cli', '$adresse_cli', '$codeville_cli', '$tel_cli', '$email_cli', '$hashed_password');");
 
         echo json_encode(['message' => 'Inscription réussie']);
 

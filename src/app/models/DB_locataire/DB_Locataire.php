@@ -23,10 +23,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email_loc = $conn->real_escape_string($data['email_loc']);
         $mdp_loc = $conn->real_escape_string($data['mdp_loc']);
 
-        $result = $conn->query("SELECT * FROM locataire WHERE email_loc = '$email_loc' AND mdp_loc = '$mdp_loc';");
+        $result = $conn->query("SELECT * FROM locataire WHERE email_loc = '$email_loc';");
 
         if ($result->num_rows > 0) {
-            echo json_encode(['message' => 'Authentification réussie']);
+            $row = $result->fetch_assoc();
+            $hashed_password = $row['mdp_loc'];
+            // Vérifier le mot de passe haché
+            if (password_verify($mdp_loc, $hashed_password)) {
+                echo json_encode(['message' => 'Authentification réussie']);
+            } else {
+                http_response_code(401);
+                echo json_encode(['message' => 'Échec de l\'authentification']);
+            }
         } else {
             http_response_code(401);
             echo json_encode(['message' => 'Échec de l\'authentification']);
@@ -45,8 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tel_banque = $conn->real_escape_string($data['tel_banque']);
         $numappart = $conn->real_escape_string($data['numappart']);
 
+            // Hacher le mot de passe
+        $hashed_password = password_hash($mdp_loc, PASSWORD_DEFAULT);
+
         $conn->query("INSERT INTO locataire (nom_loc, prenom_loc, r_i_b, datenaiss, tel_loc, email_loc, mdp_loc, tel_banque, numappart) 
-                        VALUES ('$nom_loc', '$prenom_loc', $rib, '$datenaiss', '$tel_loc', '$email_loc', '$mdp_loc', '$tel_banque', $numappart);");
+                        VALUES ('$nom_loc', '$prenom_loc', $rib, '$datenaiss', '$tel_loc', '$email_loc', '$hashed_password', '$tel_banque', $numappart);");
 
         echo json_encode(['message' => 'Inscription réussie, vous pouvez à présent vous connecter en tant que locataire.']);
 
